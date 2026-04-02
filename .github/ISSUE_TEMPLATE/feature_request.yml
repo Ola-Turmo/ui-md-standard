@@ -1,0 +1,93 @@
+name: Feature Request ✨
+description: Suggest a new feature or improvement
+title: "[Feature] "
+labels: ["enhancement"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Feature Request
+
+        Thanks for suggesting an improvement to the UI.md standard. Please fill out this template to help us understand and evaluate your proposal.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Does this feature relate to the Spec or the Tooling?
+      description: Is this feature for the UI.md specification itself (new state type, navigation behavior) or for the tooling (new linter rule, IDE feature)?
+      options:
+        - Spec (new syntax, state type, navigation behavior, ID format)
+        - Tooling (linter improvement, VS Code extension feature, CLI enhancement)
+        - Both / Unsure
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or Limitation
+      description: Describe the problem you're trying to solve or the limitation you've encountered
+      placeholder: I encounter this issue when...
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: Describe the feature or improvement you'd like to see
+      placeholder: I would like to see...
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Describe any alternative solutions or workarounds you've considered
+      placeholder: I've considered...
+    validations:
+      required: false
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: Describe a specific use case where this feature would be valuable
+      placeholder: As a [role], I want to [action] so that [benefit]...
+    validations:
+      required: false
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact Assessment
+      description: |
+        Describe the potential impact of this change:
+        - Would it be a breaking change to the spec?
+        - Would existing UI.md files need to be migrated?
+        - Would tooling need to be updated?
+      placeholder: |
+        Breaking change: [Yes/No/Unsure]
+        Migration needed: [Yes/No/Unsure]
+        Tooling impact: [None/Linter/Extension/Both]
+    validations:
+      required: false
+
+  - type: textarea
+    id: examples
+    attributes:
+      label: Example Files
+      description: |
+        If applicable, provide example UI.md snippets or suggest how the feature would look:
+        
+        ```yaml
+        # Example of the proposed change
+        ```
+      placeholder: |
+        ```yaml
+        # Your example here
+        ```
+    validations:
+      required: false

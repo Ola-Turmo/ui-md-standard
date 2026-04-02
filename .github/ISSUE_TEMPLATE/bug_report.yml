@@ -1,0 +1,105 @@
+name: Bug Report 🐛
+description: Report something that isn't working correctly
+title: "[Bug] "
+labels: ["bug"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## Bug Report
+
+        Thanks for taking the time to report a bug. Please fill out this template so we can investigate and fix the issue.
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Does this bug relate to the Spec or the Tooling?
+      description: Is this issue with the UI.md specification itself (SPEC.md, schema.json) or with the tooling (linter, VS Code extension)?
+      options:
+        - Spec (SPEC.md, schema.json, sample files)
+        - Tooling (linter, VS Code extension, CLI tools)
+        - Both / Unsure
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Bug Description
+      description: A clear and concise description of what the bug is
+      placeholder: Describe the issue here...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should happen instead?
+      placeholder: The expected behavior is...
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual Behavior
+      description: What actually happens?
+      placeholder: The actual behavior is...
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: |
+        Please add as many details as necessary to reproduce the bug:
+        1. Go to '...'
+        2. Run '...'
+        3. See error
+      placeholder: |
+        1. 
+        2. 
+        3. 
+    validations:
+      required: true
+
+  - type: textarea
+    id: files
+    attributes:
+      label: Relevant Files
+      description: List any relevant files (spec, schema, sample UI.md files, etc.)
+      placeholder: |
+        - SPEC.md
+        - tooling/ui-md-linter/schema.json
+        - samples/kanban/UI.md
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      description: Add any other context about the problem here
+      placeholder: Any other information you'd like to share...
+    validations:
+      required: false
+
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation Output
+      description: |
+        If related to tooling, paste the output from running the linter:
+        ```
+        node tooling/ui-md-linter/ui-md-lint.js <your-file>
+        ```
+      placeholder: |
+        Linter output:
+        ```
+        ...
+        ```
+    validations:
+      required: false
