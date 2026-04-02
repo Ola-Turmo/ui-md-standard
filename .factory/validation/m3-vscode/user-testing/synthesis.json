@@ -1,12 +1,12 @@
 {
   "milestone": "m3-vscode",
-  "round": 3,
+  "round": 4,
   "status": "fail",
   "assertionsSummary": {
     "total": 6,
     "passed": 4,
-    "failed": 0,
-    "blocked": 2
+    "failed": 2,
+    "blocked": 0
   },
   "passedAssertions": [
     "VAL-VSCODE-001",
@@ -14,18 +14,24 @@
     "VAL-VSCODE-003",
     "VAL-VSCODE-006"
   ],
-  "failedAssertions": [],
-  "blockedAssertions": [
+  "failedAssertions": [
     {
       "id": "VAL-VSCODE-004",
-      "blockedBy": "VS Code runtime not available in environment. Extension.js correctly implements diagnostic collection by spawning linter with --json flag and creating Diagnostic objects. Cannot verify actual Problems panel behavior without VS Code."
+      "reason": "VS Code runtime not available in headless Linux VPS environment. Extension.js correctly implements diagnostic collection by spawning linter with --json flag and creating Diagnostic objects. Cannot verify actual VS Code Problems panel behavior without VS Code."
     },
     {
       "id": "VAL-VSCODE-005",
-      "blockedBy": "VS Code runtime not available in environment. Linter passes all sample files (exit code 0, JSON output confirmed), extension.js correctly handles empty diagnostics case (no Diagnostic objects created when errors array is empty). Cannot verify actual VS Code Problems panel without VS Code."
+      "reason": "VS Code runtime not available in headless Linux VPS environment. Linter passes all sample files (exit code 0), extension.js correctly handles empty diagnostics case. Cannot verify actual VS Code Problems panel without VS Code."
     }
   ],
-  "appliedUpdates": [],
+  "blockedAssertions": [],
+  "appliedUpdates": [
+    {
+      "target": "validation-state.json",
+      "description": "Updated VAL-VSCODE-004 and VAL-VSCODE-005 status from 'pending' to 'failed' with blocking reason documented",
+      "source": "synthesis"
+    }
+  ],
   "previousRound": ".factory/validation/m3-vscode/user-testing/synthesis.json",
-  "notes": "Round 3 re-run of m3-vscode user-testing validation. VS Code remains unavailable in this headless Linux VPS environment (confirmed: `which code` returns nothing). Verified: (1) Linter passes on all sample files with exit code 0 and valid JSON output. (2) extension.js correctly spawns linter with --json flag and creates proper Diagnostic objects. (3) When linter passes (no errors), extension creates empty diagnostics array. VAL-VSCODE-004 and VAL-VSCODE-005 remain blocked - they require actual VS Code runtime to verify Problems panel behavior. This is an infrastructure limitation, not an implementation defect."
+  "notes": "Round 4 of m3-vscode user-testing validation. VS Code runtime remains unavailable on this headless Linux VPS (confirmed: no 'code' binary). All 4 testable assertions (VAL-VSCODE-001, 002, 003, 006) were validated in prior rounds via code inspection — package.json manifest fields correct, extension.js correctly invokes linter with --json flag, TextMate grammar pattern accepts correct ID formats. The 2 blocked assertions (VAL-VSCODE-004, VAL-VSCODE-005) require actual VS Code runtime to verify Problems panel behavior — this is an infrastructure limitation, not an implementation defect. The vscode-extension-linter-diagnostics feature correctly implements the required behavior (confirmed via code inspection). No further testing possible without VS Code runtime — assertions deferred to m5-vscode-runtime milestone."
 }
