@@ -1,6 +1,6 @@
 {
   "milestone": "m3-vscode",
-  "round": 4,
+  "round": 5,
   "status": "fail",
   "assertionsSummary": {
     "total": 6,
@@ -25,13 +25,7 @@
     }
   ],
   "blockedAssertions": [],
-  "appliedUpdates": [
-    {
-      "target": "validation-state.json",
-      "description": "Updated VAL-VSCODE-004 and VAL-VSCODE-005 status from 'pending' to 'failed' with blocking reason documented",
-      "source": "synthesis"
-    }
-  ],
+  "appliedUpdates": [],
   "previousRound": ".factory/validation/m3-vscode/user-testing/synthesis.json",
-  "notes": "Round 4 of m3-vscode user-testing validation. VS Code runtime remains unavailable on this headless Linux VPS (confirmed: no 'code' binary). All 4 testable assertions (VAL-VSCODE-001, 002, 003, 006) were validated in prior rounds via code inspection — package.json manifest fields correct, extension.js correctly invokes linter with --json flag, TextMate grammar pattern accepts correct ID formats. The 2 blocked assertions (VAL-VSCODE-004, VAL-VSCODE-005) require actual VS Code runtime to verify Problems panel behavior — this is an infrastructure limitation, not an implementation defect. The vscode-extension-linter-diagnostics feature correctly implements the required behavior (confirmed via code inspection). No further testing possible without VS Code runtime — assertions deferred to m5-vscode-runtime milestone."
+  "notes": "Round 5 of m3-vscode user-testing validation. VS Code runtime remains unavailable on this headless Linux VPS (confirmed: no 'code' binary). All 4 testable assertions (VAL-VSCODE-001, 002, 003, 006) were validated in prior rounds via code inspection — package.json manifest fields correct, extension.js correctly invokes linter with --json flag, TextMate grammar pattern accepts correct ID formats. The 2 blocked assertions (VAL-VSCODE-004, VAL-VSCODE-005) require actual VS Code runtime to verify Problems panel behavior — this is an infrastructure limitation, not an implementation defect. The vscode-extension-linter-diagnostics feature correctly implements the required behavior (confirmed via code inspection). No further testing possible without VS Code runtime — assertions deferred to m5-vscode-runtime milestone. No new features completed since prior round — no new assertions to test."
 }
