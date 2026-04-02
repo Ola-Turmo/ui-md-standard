@@ -483,7 +483,10 @@ Preferences holds the user's app-level configuration choices.
   ],
   "states": [
     { "id": "STATE-loading", "type": "loading", "description": "Initial load or asset fetch", "indicators": ["spinner", "brand-logo-pulse"], "allowedActions": [], "blockedActions": ["all-navigation", "all-input"] },
+    { "id": "STATE-loading-progress", "type": "loading", "description": "Progress indicator during onboarding step transitions", "indicators": ["fade-transition", "progress-bar-fill"], "allowedActions": [], "blockedActions": [] },
     { "id": "STATE-offline", "type": "offline", "description": "Network unavailable", "userMessage": "You're offline. Some features may be limited.", "indicators": ["amber-banner-top", "network-off-icon"], "allowedActions": ["all-offline-capable-steps"], "blockedActions": ["welcome-initial-load"] },
+    { "id": "STATE-field-selected", "type": "idle", "description": "Account type has been selected", "indicators": ["selected-indicator"], "allowedActions": ["proceed-to-next"], "blockedActions": [] },
+    { "id": "STATE-empty-profile", "type": "empty", "description": "Profile screen displayed before any data has been entered", "indicators": ["placeholder-text"], "allowedActions": ["field-entry"], "blockedActions": ["next-button"] },
     { "id": "STATE-field-error", "type": "error", "description": "Single field validation failure", "indicators": ["red-border-field", "error-text-below-field"], "allowedActions": ["re-enter-field"], "blockedActions": ["next-button"] },
     { "id": "STATE-form-error", "type": "error", "description": "Multiple required fields empty or invalid on submit", "userMessage": "Please fill in all required fields", "indicators": ["red-borders-multiple-fields", "banner-above-actions"], "allowedActions": ["correct-each-field"], "blockedActions": ["next-button"] },
     { "id": "STATE-permission-granted", "type": "success", "description": "Permission granted by user", "indicators": ["green-badge", "checkmark-icon"], "allowedActions": [], "blockedActions": [] },
@@ -494,19 +497,16 @@ Preferences holds the user's app-level configuration choices.
   ],
   "navigation": [
     { "from": "SCREEN-welcome", "to": "SCREEN-accountType", "trigger": "get-started-tapped", "backStack": "Push" },
-    { "from": "SCREEN-welcome", "to": "sign-in-flow", "trigger": "sign-in-tapped", "backStack": "Replace" },
     { "from": "SCREEN-accountType", "to": "SCREEN-profile", "trigger": "next-tapped", "condition": "accountTypeSelected", "backStack": "Push" },
     { "from": "SCREEN-accountType", "to": "SCREEN-profile", "trigger": "skip-tapped", "backStack": "Push" },
     { "from": "SCREEN-accountType", "to": "SCREEN-welcome", "trigger": "back-tapped", "backStack": "Pop" },
-    { "from": "SCREEN-accountType", "to": "exit-confirmation-sheet", "trigger": "back-gesture-with-data", "backStack": "Modal" },
     { "from": "SCREEN-profile", "to": "SCREEN-permissions", "trigger": "next-tapped", "condition": "requiredFieldsValid", "backStack": "Push" },
     { "from": "SCREEN-profile", "to": "SCREEN-accountType", "trigger": "back-tapped", "backStack": "Pop" },
     { "from": "SCREEN-permissions", "to": "SCREEN-preferences", "trigger": "next-tapped", "condition": "requiredPermissionsResolved", "backStack": "Push" },
     { "from": "SCREEN-permissions", "to": "SCREEN-preferences", "trigger": "skip-all-tapped", "backStack": "Push" },
     { "from": "SCREEN-permissions", "to": "SCREEN-profile", "trigger": "back-tapped", "backStack": "Pop" },
     { "from": "SCREEN-preferences", "to": "SCREEN-onboardingDone", "trigger": "next-tapped", "backStack": "Push" },
-    { "from": "SCREEN-preferences", "to": "SCREEN-permissions", "trigger": "back-tapped", "backStack": "Pop" },
-    { "from": "SCREEN-onboardingDone", "to": "main-app", "trigger": "enter-app-tapped", "backStack": "Replace" }
+    { "from": "SCREEN-preferences", "to": "SCREEN-permissions", "trigger": "back-tapped", "backStack": "Pop" }
   ],
   "roles": [
     {
