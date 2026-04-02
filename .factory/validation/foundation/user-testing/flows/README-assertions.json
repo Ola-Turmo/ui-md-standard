@@ -1,0 +1,131 @@
+{
+  "groupId": "README-assertions",
+  "testedAt": "2026-04-02T12:45:00Z",
+  "isolation": {
+    "repository": "Ola-Turmo/ui-md-standard",
+    "localPath": "/root/lovkode.no/ui-md-standard",
+    "githubUrl": "https://github.com/Ola-Turmo/ui-md-standard",
+    "branch": "master"
+  },
+  "toolsUsed": ["agent-browser", "curl", "grep"],
+  "assertions": [
+    {
+      "id": "VAL-README-001",
+      "title": "README Renders and Hooks Readers",
+      "status": "pass",
+      "steps": [
+        { "action": "Open README.md on GitHub via agent-browser", "expected": "README renders correctly with proper Markdown formatting", "observed": "README renders correctly - title, badges, and content visible" },
+        { "action": "Capture screenshot of first viewport", "expected": "Opening paragraph clearly states UI.md value proposition", "observed": "Opening paragraph: 'UI.md is a behavioral contract that keeps AI agents, designers, and developers in sync.' (within 50 words)" }
+      ],
+      "evidence": {
+        "screenshots": [
+          "evidence/foundation/README/VAL-README-001-readme-rendering.png",
+          "evidence/foundation/README/VAL-README-006-badges.png"
+        ],
+        "consoleErrors": "none",
+        "network": "GitHub page loaded successfully, all resources returned HTTP 200/302"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-README-002",
+      "title": "Problem-Solution Fit",
+      "status": "pass",
+      "steps": [
+        { "action": "Read README.md for problem statement", "expected": "README explicitly names coordination problem with concrete examples", "observed": "README identifies 'coordination problem' and lists 3 concrete failure modes: Agents produce screens that don't connect, State handling becomes inconsistent, Data contracts drift apart" }
+      ],
+      "evidence": {
+        "quote": "When multiple AI agents work on the same UI, they don't know when their outputs need to fit together. Without a shared contract: Agents produce screens that don't connect — navigation graphs silently diverge; State handling becomes inconsistent — one agent models loading states, another doesn't; Data contracts drift apart — the 'user' entity has different fields in different agents' outputs"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-README-003",
+      "title": "Quick-Start Guide",
+      "status": "pass",
+      "steps": [
+        { "action": "Verify Quick Start section exists", "expected": "Quick-start section with ≤5 numbered steps and code snippets", "observed": "Quick Start section has exactly 5 steps (Step 1: Explore a Sample, Step 2: Create Your First UI.md, Step 3: Add the Machine-Readable Appendix, Step 4: Install the Linter, Step 5: Validate)" },
+        { "action": "Verify each step has code/markdown snippets", "expected": "Each step includes actionable code/markdown snippets", "observed": "Each step contains markdown examples (e.g., UI.md skeleton, YAML appendix) or CLI commands (npm install, node tooling/ui-md-linter/ui-md-lint.js)" }
+      ],
+      "evidence": {
+        "screenshots": ["evidence/foundation/README/VAL-README-003-quickstart.png"],
+        "lineReferences": "Lines 23-100 in README.md contain Quick Start section with 5 numbered steps"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-README-004",
+      "title": "Comparison with Alternatives",
+      "status": "pass",
+      "steps": [
+        { "action": "Verify comparison section exists with ≥3 alternatives", "expected": "Comparison table/narrative with ≥3 alternatives", "observed": "Comparison table at line 104 lists 4 alternatives: DESIGN.md, PRD/SPEC.md, Storybook, API.md" },
+        { "action": "Verify each alternative's limitation is named", "expected": "Each alternative's limitation is named and UI.md differentiation is clear", "observed": "Table columns show: Document, What It Covers, UI.md Differentiation for each alternative" }
+      ],
+      "evidence": {
+        "screenshots": ["evidence/foundation/README/VAL-README-004-comparison.png"],
+        "alternativesListed": ["DESIGN.md", "PRD/SPEC.md", "Storybook", "API.md"],
+        "lineReference": "Lines 104-117 in README.md"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-README-005",
+      "title": "Adoption Evidence",
+      "status": "pass",
+      "steps": [
+        { "action": "Verify README references samples/ directory", "expected": "README references samples/ directory or external adoption", "observed": "README at line 120 states 'See real examples in samples/'" },
+        { "action": "Verify examples are non-trivial (≥3 screens)", "expected": "At least one example shows real application flow", "observed": "README lists three samples with descriptions of non-trivial flows: kanban (drag-drop, filters, real-time states), mobile-onboarding (permissions, progress persistence), cli-dashboard (keyboard navigation, streaming output)" }
+      ],
+      "evidence": {
+        "lineReference": "Lines 120-124 in README.md",
+        "samplesReferenced": ["samples/kanban", "samples/mobile-onboarding", "samples/cli-dashboard"]
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-README-006",
+      "title": "Badge and Link Quality",
+      "status": "pass",
+      "steps": [
+        { "action": "Verify all links return HTTP 200", "expected": "All links resolve to valid URLs", "observed": "GitHub main: 200, MIT badge: 200, MIT license (redirect): 301, SPEC.md: 302, CONTRIBUTING.md: 302, AGENTS.md: 302" },
+        { "action": "Verify badges render correctly", "expected": "All badges render with correct status", "observed": "MIT license badge and Version badge visible in screenshots" }
+      ],
+      "evidence": {
+        "screenshots": ["evidence/foundation/README/VAL-README-006-badges.png"],
+        "linkValidation": "curl checks confirmed HTTP 200/301/302 for all tested links (redirects are expected for GitHub)"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-README-007",
+      "title": "Installation/Usage Instructions",
+      "status": "pass",
+      "steps": [
+        { "action": "Verify installation section exists with prerequisites", "expected": "Installation section includes prerequisite list, install command, usage example", "observed": "Linter Installation and Usage section (lines 130-165) includes: Prerequisites (Node.js ≥18), Installation commands (git clone, npm install), Usage examples (node tooling/ui-md-linter/ui-md-lint.js), Exit codes table" }
+      ],
+      "evidence": {
+        "lineReference": "Lines 130-165 in README.md",
+        "prerequisites": "Node.js ≥18, npm or yarn",
+        "usageCommands": "node tooling/ui-md-linter/ui-md-lint.js ./UI.md"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-README-008",
+      "title": "Contributing Path",
+      "status": "pass",
+      "steps": [
+        { "action": "Verify CONTRIBUTING link present in README", "expected": "CONTRIBUTING link present with brief description", "observed": "Contributing section at line 181 states 'We welcome contributions! See CONTRIBUTING.md for:' followed by topics covered" }
+      ],
+      "evidence": {
+        "screenshots": ["evidence/foundation/README/VAL-README-008-contributing.png"],
+        "lineReference": "Lines 181-186 in README.md",
+        "contributingLink": "[CONTRIBUTING.md](./CONTRIBUTING.md)"
+      },
+      "issues": null
+    }
+  ],
+  "frictions": [],
+  "blockers": [],
+  "summary": "Tested 8 assertions (VAL-README-001 through VAL-README-008): all 8 passed. README.md renders correctly on GitHub, clearly articulates the coordination problem UI.md solves, provides a 5-step quick-start guide, compares with 4 alternatives, references non-trivial sample applications, has valid badges and links, includes complete installation/usage instructions, and provides clear contributing guidance."
+}

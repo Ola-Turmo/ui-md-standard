@@ -1,0 +1,153 @@
+{
+  "groupId": "SPEC-assertions",
+  "testedAt": "2026-04-02T13:15:00Z",
+  "isolation": {
+    "repository": "Ola-Turmo/ui-md-standard",
+    "localPath": "/root/lovkode.no/ui-md-standard",
+    "githubUrl": "https://github.com/Ola-Turmo/ui-md-standard",
+    "branch": "master"
+  },
+  "toolsUsed": ["agent-browser", "scrutiny (file content analysis)"],
+  "assertions": [
+    {
+      "id": "VAL-SPEC-001",
+      "title": "SPEC.md existence and readability",
+      "status": "pass",
+      "steps": [
+        { "action": "Open GitHub SPEC.md URL", "expected": "Page loads without error", "observed": "Page loaded successfully at https://github.com/Ola-Turmo/ui-md-standard/blob/master/SPEC.md" },
+        { "action": "Verify no rendering errors", "expected": "No 'Unable to render' errors", "observed": "No console errors detected" },
+        { "action": "Capture screenshot", "expected": "Screenshot saved", "observed": "Screenshot saved to evidence directory" }
+      ],
+      "evidence": {
+        "screenshots": ["evidence/foundation/SPEC/VAL-SPEC-001-GitHub-render.png"],
+        "consoleErrors": "none",
+        "network": "GitHub page loaded successfully"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-SPEC-002",
+      "title": "Standard scope definition",
+      "status": "pass",
+      "steps": [
+        { "action": "Read SPEC.md section 1.1 and 1.2", "expected": "Explicit boundaries defining what UI.md is and is not", "observed": "Table in 1.1 differentiates UI.md from DESIGN.md, PRD, ARCHITECTURE.md, API.md, Storybook" },
+        { "action": "Verify scope boundaries", "expected": "Clear covers/excludes statements", "observed": "Section 1.3 explicitly lists UI.md covers (screens, navigation, states, etc.) and excludes (visual tokens, framework names, API paths)" }
+      ],
+      "evidence": {
+        "quote": "UI.md **covers**: Screen inventory, Navigation graph, State model, Interaction patterns, Data contract, Machine-readable appendix\nUI.md **excludes**: Visual design tokens, Framework-specific names, API endpoint paths, Code snippets, Marketing copy"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-SPEC-003",
+      "title": "Required sections enumerated",
+      "status": "pass",
+      "steps": [
+        { "action": "Count required sections in SPEC.md", "expected": "At least 6 required sections", "observed": "Found 7 required sections: Screen Inventory (5), Navigation Model (6), Core User Flows (7), Interaction Patterns (8), State Model (9), Data Contract (10), Machine-Readable Appendix (11)" }
+      ],
+      "evidence": {
+        "sections": [
+          "Section 5: Screen Inventory",
+          "Section 6: Navigation Model",
+          "Section 7: Core User Flows",
+          "Section 8: Interaction Patterns",
+          "Section 9: State Model",
+          "Section 10: Data Contract",
+          "Section 11: Appendix: Machine-Readable Schema"
+        ]
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-SPEC-004",
+      "title": "Screen inventory schema",
+      "status": "pass",
+      "steps": [
+        { "action": "Examine Screen Schema in section 5.2", "expected": "At least 5 required fields per screen", "observed": "Schema defines 7 required fields: id, purpose, primaryActions, entryConditions, exitConditions, states, roleAccess" },
+        { "action": "Verify example provided", "expected": "Example screen entry", "observed": "Section 5.4 provides complete example for SCREEN-board with all fields filled" }
+      ],
+      "evidence": {
+        "schemaFields": ["id (string)", "purpose (string)", "primaryActions (string[])", "entryConditions (string[])", "exitConditions (string[])", "states (string[])", "roleAccess (string[])"],
+        "exampleScreen": "SCREEN-board with Purpose, Primary Actions, Entry Conditions, Exit Conditions, States"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-SPEC-005",
+      "title": "State model coverage",
+      "status": "pass",
+      "steps": [
+        { "action": "Examine state model in section 9.2", "expected": "At least 5 state categories", "observed": "6 state categories defined: loading, empty, error, success, offline, permission-denied" },
+        { "action": "Verify behavioral descriptions", "expected": "Behavioral descriptions for each state type", "observed": "Section 9.4 provides detailed examples for STATE-loading, STATE-empty-board, STATE-error, STATE-offline, STATE-permission-denied, STATE-success" }
+      ],
+      "evidence": {
+        "stateCategories": [
+          "STATE-loading: Initial load, refresh, background sync",
+          "STATE-empty: No data, filtered empty, first-use",
+          "STATE-error: Network failure, validation error, permission denied, server error",
+          "STATE-success: Operation complete, confirmation shown",
+          "STATE-offline: Disconnected, reconnecting, cached data stale",
+          "STATE-permission-denied: User lacks access to feature or data"
+        ]
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-SPEC-006",
+      "title": "Navigation graph specification",
+      "status": "pass",
+      "steps": [
+        { "action": "Examine Navigation Graph section 6.1-6.6", "expected": "Navigation spec with at least 3 example transitions", "observed": "Section 6.2 provides 3+ example transitions in Markdown table and Mermaid diagram formats" },
+        { "action": "Verify entry points, terminal screens, conditional routing", "expected": "Complete navigation semantics defined", "observed": "Section 6.6 defines entry points, terminal screens, and conditional routing" }
+      ],
+      "evidence": {
+        "exampleTransitions": [
+          "SCREEN-login → SCREEN-board (Submit credentials, Auth success, No)",
+          "SCREEN-board → SCREEN-cardDetail (Click card, Card selected, Push)",
+          "SCREEN-board → SCREEN-filter (Click filter button, —, Push)"
+        ],
+        "mermaidExample": "graph LR with A[SCREEN-login] --> B[SCREEN-board], B --> C[SCREEN-cardDetail], B --> D[SCREEN-filter]"
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-SPEC-007",
+      "title": "Data contract definition",
+      "status": "pass",
+      "steps": [
+        { "action": "Examine Data Contract section 10.2-10.3", "expected": "At least 4 required attributes per data entity", "observed": "Data entity schema has 5 required fields: entityId, name, fields, screenUsage, operations" },
+        { "action": "Verify field schema", "expected": "Field-level schema with label, type, constraints", "observed": "Field schema has 7 attributes: name, label, type, constraints, required, readOnly, format" },
+        { "action": "Verify examples", "expected": "Example data entities provided", "observed": "Section 10.5 provides ENTITY-card and ENTITY-user examples" }
+      ],
+      "evidence": {
+        "entitySchemaFields": ["entityId", "name", "fields", "screenUsage", "operations"],
+        "fieldSchemaFields": ["name", "label", "type", "constraints", "required", "readOnly", "format"],
+        "exampleEntities": ["ENTITY-card (9 fields)", "ENTITY-user (4 fields)"]
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-SPEC-008",
+      "title": "Machine-readable appendix specification",
+      "status": "fail",
+      "steps": [
+        { "action": "Examine Appendix section 11.3-11.4", "expected": "Appendix schema defined with validation rules, compatible with tooling/ui-md-linter/schema.json", "observed": "SPEC.md defines comprehensive JSON Schema in section 11.3 with 7 validation rules in 11.4" },
+        { "action": "Check tooling/ui-md-linter/schema.json compatibility", "expected": "Linter schema file exists and matches SPEC.md appendix schema", "observed": "ISSUE: tooling/ui-md-linter/schema.json is empty ({}) - incompatible with the specification" }
+      ],
+      "evidence": {
+        "specDefines": "Full JSON Schema with version, screens, states, navigation, roles, dataContracts, and 7 validation rules",
+        "linterSchemaStatus": "tooling/ui-md-linter/schema.json is empty ({}) - does not match the specification"
+      },
+      "issues": "The SPEC.md defines a complete appendix schema, but the tooling/ui-md-linter/schema.json file is empty. This breaks compatibility between the specification and the linter tooling."
+    }
+  ],
+  "frictions": [],
+  "blockers": [
+    {
+      "description": "tooling/ui-md-linter/schema.json is empty - needs to be populated with the JSON Schema defined in SPEC.md section 11.3",
+      "affectedAssertions": ["VAL-SPEC-008"],
+      "quickFixAttempted": "None - this requires code changes to the tooling, not just a documentation fix"
+    }
+  ],
+  "summary": "Tested 8 assertions (VAL-SPEC-001 through VAL-SPEC-008): 7 passed, 1 failed. VAL-SPEC-008 failed because tooling/ui-md-linter/schema.json is empty ({}) while SPEC.md section 11 defines a comprehensive machine-readable appendix schema. All other SPEC.md completeness and correctness assertions pass."
+}

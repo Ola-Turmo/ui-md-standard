@@ -1,0 +1,78 @@
+{
+  "milestone": "foundation",
+  "round": 1,
+  "status": "fail",
+  "assertionsSummary": {
+    "total": 24,
+    "passed": 23,
+    "failed": 1,
+    "blocked": 0
+  },
+  "passedAssertions": [
+    "VAL-SPEC-001",
+    "VAL-SPEC-002",
+    "VAL-SPEC-003",
+    "VAL-SPEC-004",
+    "VAL-SPEC-005",
+    "VAL-SPEC-006",
+    "VAL-SPEC-007",
+    "VAL-README-001",
+    "VAL-README-002",
+    "VAL-README-003",
+    "VAL-README-004",
+    "VAL-README-005",
+    "VAL-README-006",
+    "VAL-README-007",
+    "VAL-README-008",
+    "VAL-AGENTS-001",
+    "VAL-AGENTS-002",
+    "VAL-AGENTS-003",
+    "VAL-AGENTS-004",
+    "VAL-AGENTS-005",
+    "VAL-AGENTS-006",
+    "VAL-AGENTS-007",
+    "VAL-AGENTS-008"
+  ],
+  "failedAssertions": [
+    {
+      "id": "VAL-SPEC-008",
+      "reason": "tooling/ui-md-linter/schema.json is empty ({}) - does not match the comprehensive JSON Schema defined in SPEC.md section 11.3. SPEC.md defines a complete machine-readable appendix schema with version, screens, states, navigation, roles, dataContracts fields and 7 validation rules, but the actual linter schema file is empty."
+    }
+  ],
+  "blockedAssertions": [],
+  "appliedUpdates": [],
+  "previousRound": null,
+  "flowReports": [
+    {
+      "groupId": "SPEC-assertions",
+      "file": ".factory/validation/foundation/user-testing/flows/SPEC-assertions.json",
+      "result": "7 pass, 1 fail",
+      "summary": "SPEC.md completeness and correctness: 7/8 passed. VAL-SPEC-008 failed because tooling/ui-md-linter/schema.json is empty."
+    },
+    {
+      "groupId": "README-assertions",
+      "file": ".factory/validation/foundation/user-testing/flows/README-assertions.json",
+      "result": "8 pass, 0 fail",
+      "summary": "README.md persuasiveness and clarity: 8/8 passed. All README assertions verified."
+    },
+    {
+      "groupId": "AGENTS-assertions",
+      "file": ".factory/validation/foundation/user-testing/flows/AGENTS-assertions.json",
+      "result": "8 pass, 0 fail",
+      "summary": "AGENTS.md usability for AI agents: 8/8 passed. All AGENTS assertions verified."
+    }
+  ],
+  "blockers": [
+    {
+      "severity": "blocking",
+      "assertionId": "VAL-SPEC-008",
+      "description": "tooling/ui-md-linter/schema.json is empty - needs to be populated with the JSON Schema defined in SPEC.md section 11.3",
+      "quickFix": "Copy the JSON Schema from SPEC.md section 11.3 into tooling/ui-md-linter/schema.json and validate it's valid JSON Schema draft-07+"
+    }
+  ],
+  "testedAssertions": [
+    "VAL-SPEC-001", "VAL-SPEC-002", "VAL-SPEC-003", "VAL-SPEC-004", "VAL-SPEC-005", "VAL-SPEC-006", "VAL-SPEC-007", "VAL-SPEC-008",
+    "VAL-README-001", "VAL-README-002", "VAL-README-003", "VAL-README-004", "VAL-README-005", "VAL-README-006", "VAL-README-007", "VAL-README-008",
+    "VAL-AGENTS-001", "VAL-AGENTS-002", "VAL-AGENTS-003", "VAL-AGENTS-004", "VAL-AGENTS-005", "VAL-AGENTS-006", "VAL-AGENTS-007", "VAL-AGENTS-008"
+  ]
+}

@@ -1,0 +1,165 @@
+{
+  "groupId": "AGENTS-assertions",
+  "testedAt": "2026-04-02T12:35:00Z",
+  "isolation": {
+    "repository": "Ola-Turmo/ui-md-standard",
+    "localPath": "/root/lovkode.no/ui-md-standard",
+    "branch": "master",
+    "commitId": "e5b6b0e",
+    "githubUrl": "https://github.com/Ola-Turmo/ui-md-standard"
+  },
+  "toolsUsed": ["scrutiny", "manual"],
+  "assertions": [
+    {
+      "id": "VAL-AGENTS-001",
+      "title": "AGENTS.md Provides Effective AI Guidance",
+      "status": "pass",
+      "steps": [
+        { "action": "Read AGENTS.md structure", "expected": "File exists with comprehensive guidance", "observed": "AGENTS.md exists with 898 lines, 19 major sections" },
+        { "action": "Verify reading guidance", "expected": "Section on reading UI.md files", "observed": "Section 1 'Reading a UI.md File' provides detailed extraction checklist" },
+        { "action": "Verify writing guidance", "expected": "Section on producing UI.md from specs", "observed": "Section 2 'Producing a New UI.md from Product Specs' covers discovery, authoring, validation phases" },
+        { "action": "Verify validation guidance", "expected": "Validation phase instructions", "observed": "Section 2 includes Validation Phase with linter commands" }
+      ],
+      "evidence": {
+        "fileExists": true,
+        "lineCount": 898,
+        "sectionCount": 19,
+        "sections": ["1. Reading a UI.md File", "2. Producing a New UI.md from Product Specs", "3. Prompt Templates", "4. Error Catalog", "5. Version Migration Guidance", "6. Multi-Agent Coordination Workflow", "7. Boundary Condition Examples", "8. Linter Integration"]
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AGENTS-002",
+      "title": "Prompt Templates Provided",
+      "status": "pass",
+      "steps": [
+        { "action": "Count prompt templates", "expected": "≥2 distinct templates with PLACEHOLDER markers", "observed": "2 prompt templates confirmed" },
+        { "action": "Verify template 1", "expected": "Generate UI.md from product description template", "observed": "Template: Generate UI.md from Product Description with [PLACEHOLDER] markers" },
+        { "action": "Verify template 2", "expected": "Review and validate existing UI.md template", "observed": "Template: Review and Validate Existing UI.md with [PLACEHOLDER] markers" }
+      ],
+      "evidence": {
+        "templateCount": 2,
+        "placeholderMarkers": ["[PLACEHOLDER: Full product description...]", "[PLACEHOLDER: Paste the full content of the UI.md file to review]"]
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AGENTS-003",
+      "title": "Error Handling Guidance",
+      "status": "pass",
+      "steps": [
+        { "action": "Count error catalog entries", "expected": "≥5 error entries with description, root cause, corrective action", "observed": "10 error catalog entries confirmed" },
+        { "action": "Verify error catalog structure", "expected": "Each entry has Error Name, Description, Root Cause, Corrective Action", "observed": "Error 1-10 each include Error Name, Description, Root Cause, Corrective Action" },
+        { "action": "List error types", "expected": "Common UI.md authoring mistakes", "observed": "MISSING_REQUIRED_SECTION, INCONSISTENT_ID_FORMAT, ORPHANED_STATE_REFERENCE, UNDEFINED_NAVIGATION_TARGET, INVALID_STATE_TYPE, DUPLICATE_SCREEN_ID, MISSING_APPENDIX, BROKEN_ENTITY_REFERENCE, IMPLEMENTATION_LEAK, INVALID_BACK_STACK" }
+      ],
+      "evidence": {
+        "errorCount": 10,
+        "errorTypes": ["MISSING_REQUIRED_SECTION", "INCONSISTENT_ID_FORMAT", "ORPHANED_STATE_REFERENCE", "UNDEFINED_NAVIGATION_TARGET", "INVALID_STATE_TYPE", "DUPLICATE_SCREEN_ID", "MISSING_APPENDIX", "BROKEN_ENTITY_REFERENCE", "IMPLEMENTATION_LEAK", "INVALID_BACK_STACK"]
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AGENTS-004",
+      "title": "Version and Change Guidance",
+      "status": "pass",
+      "steps": [
+        { "action": "Verify version section exists", "expected": "Section covering version migration guidance", "observed": "Section 5 'Version Migration Guidance' exists" },
+        { "action": "Verify version detection guidance", "expected": "How to detect UI.md version", "observed": "Section 5.1 'Detecting the Current Version' explains appendix version field check" },
+        { "action": "Verify migration procedure", "expected": "Step-by-step migration instructions", "observed": "Section 5.2 'Migration Procedure' covers read changelog, update version, address structural changes, run linter, verify consistency" },
+        { "action": "Verify backward compatibility", "expected": "Compatibility rules", "observed": "Section 5.3 'Backward Compatibility' defines forward compatibility within major version, breaking changes across versions" }
+      ],
+      "evidence": {
+        "sectionExists": true,
+        "sectionNumber": 5,
+        "sectionTitle": "Version Migration Guidance",
+        "subsections": ["5.1 Detecting the Current Version", "5.2 Migration Procedure", "5.3 Backward Compatibility", "5.4 Schema Version Reference"]
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AGENTS-005",
+      "title": "Multi-Agent Coordination Guidance",
+      "status": "pass",
+      "steps": [
+        { "action": "Verify multi-agent section exists", "expected": "Section on multi-agent workflow", "observed": "Section 6 'Multi-Agent Coordination Workflow' exists" },
+        { "action": "Count agent roles", "expected": "≥2 distinct agent roles", "observed": "3 distinct agent roles confirmed" },
+        { "action": "Verify role definitions", "expected": "Role responsibilities defined", "observed": "Screen Author, State and Data Model Author, Validation and Integration Author defined with specific outputs" },
+        { "action": "Verify merge strategy", "expected": "How to merge contributions", "observed": "Section 6.2 'Merge Strategy' covers parallel drafting, cross-reference pass, merge, integration pass, final lint" },
+        { "action": "Verify concurrent edit handling", "expected": "Strategies for concurrent edits", "observed": "Section 6.3 'Concurrent Edit Handling' covers section-based locking, staged editing with diff review, sequential ownership" }
+      ],
+      "evidence": {
+        "sectionExists": true,
+        "sectionNumber": 6,
+        "roleCount": 3,
+        "roles": ["Screen Author", "State and Data Model Author", "Validation and Integration Author"],
+        "mergeStrategies": ["Parallel drafting", "Cross-reference pass", "Merge", "Integration pass", "Final lint"],
+        "concurrentEditStrategies": ["Section-based locking", "Staged editing with diff review", "Sequential ownership"]
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AGENTS-006",
+      "title": "Boundary Condition Examples",
+      "status": "pass",
+      "steps": [
+        { "action": "Count boundary examples", "expected": "≥3 distinct boundary scenarios", "observed": "5 boundary examples confirmed" },
+        { "action": "List boundary examples", "expected": "Realistic edge cases", "observed": "Example 1: Optional Screens (Conditional Presence), Example 2: Undo/Redo Flow, Example 3: Permission-Gated UI, Example 4: Real-Time Screens (Live Updates), Example 5: Multi-Step Transaction" }
+      ],
+      "evidence": {
+        "exampleCount": 5,
+        "examples": ["Optional Screens (Conditional Presence)", "Undo/Redo Flow", "Permission-Gated UI", "Real-Time Screens (Live Updates)", "Multi-Step Transaction"]
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AGENTS-007",
+      "title": "Tool Integration Instructions",
+      "status": "pass",
+      "steps": [
+        { "action": "Verify linter section exists", "expected": "Section on linter integration", "observed": "Section 8 'Linter Integration' exists" },
+        { "action": "Verify CLI usage", "expected": "Command-line usage examples", "observed": "Section 8.1 'CLI Usage' provides node tooling/ui-md-linter/ui-md-lint.js examples" },
+        { "action": "Verify exit codes documented", "expected": "Exit code meanings", "observed": "Section 8.2 'Exit Codes' documents 0 (pass), 1 (fail), 2 (file not found)" },
+        { "action": "Verify error format documented", "expected": "Structured error output format", "observed": "Section 8.3 'Error Output Format' shows ERROR type, file, line, section, message, suggestion" },
+        { "action": "Verify CI integration", "expected": "CI pipeline snippets", "observed": "Section 8.5 'CI Integration' includes GitHub Actions (basic and matrix) and GitLab CI snippets" }
+      ],
+      "evidence": {
+        "sectionExists": true,
+        "sectionNumber": 8,
+        "cliUsage": true,
+        "exitCodes": true,
+        "errorFormat": true,
+        "ciSnippets": ["GitHub Actions basic", "GitHub Actions matrix", "GitLab CI"]
+      },
+      "issues": null
+    },
+    {
+      "id": "VAL-AGENTS-008",
+      "title": "Readability and Clarity for Non-Expert Agents",
+      "status": "pass",
+      "steps": [
+        { "action": "Verify terminology consistency", "expected": "Consistent use of Screen, State, Role, Entity, Pattern", "observed": "SCREEN-*, STATE-*, ROLE-*, ENTITY-*, PATTERN-* formats used consistently throughout" },
+        { "action": "Verify concrete examples", "expected": "Instructions contain examples over abstract descriptions", "observed": "Each section contains concrete examples (e.g., SCREEN-documentList, STATE-loading, PATTERN-dragCard)" },
+        { "action": "Verify no decorative-only headings", "expected": "All sections have substantive content", "observed": "8 numbered sections with substantive content; 3 appendices with reference material" },
+        { "action": "Verify implementation independence", "expected": "No framework names", "observed": "0 instances of react, vue, svelte, angular, material, bootstrap" },
+        { "action": "Verify no placeholder text", "expected": "No TODO/FIXME/TBD in shipped content", "observed": "0 instances of TODO, FIXME, TBD in content (4 were in validation checklist examples)" }
+      ],
+      "evidence": {
+        "terminologyConsistent": true,
+        "idFormats": {
+          "SCREEN-*": "Consistently used for screen IDs",
+          "STATE-*": "Consistently used for state IDs",
+          "ROLE-*": "Consistently used for role IDs",
+          "ENTITY-*": "Consistently used for entity IDs",
+          "PATTERN-*": "Consistently used for pattern IDs"
+        },
+        "noFrameworkLeak": true,
+        "noPlaceholderText": true,
+        "concreteExamples": true
+      },
+      "issues": null
+    }
+  ],
+  "frictions": [],
+  "blockers": [],
+  "summary": "Tested 8 VAL-AGENTS assertions: 8 passed (VAL-AGENTS-001 through VAL-AGENTS-008). AGENTS.md provides comprehensive AI guidance with: 2 prompt templates, 10 error catalog entries, 5 boundary examples, 3 agent roles, linter integration with CI snippets, and consistent implementation-independent terminology."
+}
