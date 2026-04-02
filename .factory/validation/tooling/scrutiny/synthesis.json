@@ -1,0 +1,72 @@
+{
+  "milestone": "tooling",
+  "round": 1,
+  "status": "fail",
+  "validatorsRun": {
+    "lint-all-samples": {
+      "passed": true,
+      "command": "node tooling/ui-md-linter/ui-md-lint.js samples/kanban/UI.md && node tooling/ui-md-linter/ui-md-lint.js samples/mobile-onboarding/UI.md && node tooling/ui-md-linter/ui-md-lint.js samples/cli-dashboard/UI.md",
+      "exitCode": 0,
+      "notes": "All 3 samples passed with zero errors"
+    },
+    "check-schema": {
+      "passed": true,
+      "command": "node -e \"JSON.parse(require('fs').readFileSync('tooling/ui-md-linter/schema.json'))\"",
+      "exitCode": 0,
+      "notes": "Schema is valid JSON"
+    },
+    "placeholder-check": {
+      "passed": true,
+      "command": "grep -r 'TODO|FIXME|TBD' SPEC.md README.md AGENTS.md CONTRIBUTING.md samples/ tooling/",
+      "exitCode": 0,
+      "notes": "No placeholder text found"
+    },
+    "vscode-install": {
+      "passed": true,
+      "command": "cd tooling/vscode-extension && npm install",
+      "exitCode": 0,
+      "notes": "npm install succeeded but package.json is missing required VS Code extension fields"
+    }
+  },
+  "reviewsSummary": {
+    "total": 3,
+    "passed": 1,
+    "failed": 2,
+    "failedFeatures": ["write-vscode-extension-skeleton", "write-contributing-md"]
+  },
+  "blockingIssues": [
+    {
+      "featureId": "write-vscode-extension-skeleton",
+      "severity": "blocking",
+      "description": "package.json missing all VS Code extension-specific required fields: activationEvents, contributes, dependencies/devDependencies. README.md does not exist.",
+      "evidence": [
+        "tooling/vscode-extension/package.json has only name, version, description, main fields",
+        "tooling/vscode-extension/README.md does not exist"
+      ],
+      "validationAssertionsBlocked": ["VAL-TOOL-005", "VAL-TOOL-006"]
+    },
+    {
+      "featureId": "write-contributing-md",
+      "severity": "blocking",
+      "description": "CONTRIBUTING.md is a 60-byte placeholder with no substantive content. No branching strategy, change type categories, validation requirements, PR process, review guidelines, or spec vs tooling distinction.",
+      "evidence": [
+        "CONTRIBUTING.md contains only '# Contributing' and 'Contributions welcome. Details coming soon.'",
+        "File has been untouched since initial repo setup (commit 4e6d427)",
+        "No worker commit corresponds to this feature"
+      ],
+      "validationAssertionsBlocked": ["VAL-TOOL-007", "VAL-TOOL-008"]
+    }
+  ],
+  "appliedUpdates": [],
+  "suggestedGuidanceUpdates": [
+    {
+      "target": "AGENTS.md",
+      "suggestion": "Document the standard project structure: features.json at repo root, handoffs/ directory, worker-transcripts.jsonl. The scrutiny-reviewer skill expects these but they are absent from the ui-md-standard repo.",
+      "evidence": "Review of write-contributing-md found no features.json, handoffs/, or worker-transcripts.jsonl in the repo, despite skill referencing them.",
+      "isSystemic": true
+    }
+  ],
+  "rejectedObservations": [],
+  "previousRound": null,
+  "createdAt": "2026-04-02T17:35:00Z"
+}

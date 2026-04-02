@@ -1,0 +1,40 @@
+{
+  "featureId": "write-vscode-extension-skeleton",
+  "reviewedAt": "2026-04-02T17:30:00Z",
+  "commitId": null,
+  "transcriptSkeletonReviewed": false,
+  "diffReviewed": false,
+  "status": "fail",
+  "codeReview": {
+    "summary": "The vscode-extension skeleton is incomplete. package.json is missing all required fields (activationEvents, contributes, dependencies). README.md does not exist. npm install passes but only because package.json has no dependencies.",
+    "issues": [
+      {
+        "file": "tooling/vscode-extension/package.json",
+        "line": null,
+        "severity": "blocking",
+        "description": "Missing 'activationEvents' field. A VS Code extension requires activationEvents to define when the extension activates (e.g., onLanguage, onCommand, onStartupFinished)."
+      },
+      {
+        "file": "tooling/vscode-extension/package.json",
+        "line": null,
+        "severity": "blocking",
+        "description": "Missing 'contributes' field. A VS Code extension requires contributes to define language configurations, diagnostics, commands, or other extension contributions."
+      },
+      {
+        "file": "tooling/vscode-extension/package.json",
+        "line": null,
+        "severity": "blocking",
+        "description": "Missing 'dependencies' or 'devDependencies' field. A VS Code extension needs at minimum @types/vscode as a devDependency for TypeScript type checking."
+      },
+      {
+        "file": "tooling/vscode-extension/README.md",
+        "line": null,
+        "severity": "blocking",
+        "description": "README.md does not exist. The validation contract requires README.md explaining: (1) what the extension does, (2) how to install from source, (3) how to use each feature."
+      }
+    ]
+  },
+  "sharedStateObservations": [],
+  "addressesFailureFrom": null,
+  "summary": "Feature write-vscode-extension-skeleton FAILS review. The package.json has only name, version, description, and main fields but is missing all VS Code extension-specific required fields (activationEvents, contributes, dependencies). README.md is entirely absent. While npm install passes (trivially, since there are no dependencies), the skeleton does not constitute a valid VS Code extension. The feature fulfills none of its validation assertions (VAL-TOOL-005, VAL-TOOL-006)."
+}

@@ -1,0 +1,28 @@
+{
+  "featureId": "write-contributing-md",
+  "reviewedAt": "2026-04-02T17:30:00Z",
+  "commitId": null,
+  "transcriptSkeletonReviewed": false,
+  "diffReviewed": false,
+  "status": "fail",
+  "codeReview": {
+    "summary": "CONTRIBUTING.md is a generic placeholder (60 bytes) and does not contain any substantive content. No commit corresponds to a 'write-contributing-md' feature implementation; the file remains as it was from initial repo setup (commit 4e6d427). The file contains only '# Contributing' followed by 'Contributions welcome. Details coming soon.' — no branching strategy, change types, validation requirements, PR process, review guidelines, or spec/tooling distinction.",
+    "issues": [
+      {
+        "file": "CONTRIBUTING.md",
+        "line": 1,
+        "severity": "blocking",
+        "description": "File is empty placeholder. Criteria 2-8 all fail: no branching strategy defined, no change type categories (0 of 4 required), no validation requirements defined, no PR submission process defined, no review guidelines defined, no distinction between spec and tooling changes, content is generic not substantive."
+      }
+    ]
+  },
+  "sharedStateObservations": [
+    {
+      "area": "conventions",
+      "observation": "The ui-md-standard repo lacks the standard Factory mission structure (features.json, handoffs/, worker-transcripts.jsonl) that the scrutiny-reviewer skill expects. The AGENTS.md does not document the expected project structure for mission artifacts.",
+      "evidence": "Mission dir /root/lovkode.no/ui-md-standard has no features.json, no handoffs/ directory, no worker-transcripts.jsonl. The skill prompt references these but they don't exist in this repo."
+    }
+  ],
+  "addressesFailureFrom": null,
+  "summary": "FAIL — CONTRIBUTING.md is a 60-byte placeholder with no substantive content. Does not define branching strategy, change types (breaking spec, non-breaking spec, tooling, docs-only), validation requirements, PR process, review guidelines, or spec vs tooling distinction. No evidence of a 'write-contributing-md' feature worker having run; file has been untouched since initial repo setup (commit 4e6d427)."
+}
