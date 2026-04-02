@@ -564,10 +564,45 @@ function validateReferentialIntegrity(content, appendix) {
     }
   }
   
-  // Note: State ID referential integrity checking is skipped because
-  // state IDs in prose are often used generically (e.g., "STATE-empty" as a category)
-  // and don't always 1:1 correspond with appendix definitions.
-  // The duplicate state ID check already catches duplicate definitions.
+  // Validate STATE-* references in prose against appendix states
+  const proseStateIds = new Set();
+  const stateIdRegex = /STATE-[A-Za-z][a-zA-Z0-9-]*/g;
+  while ((match = stateIdRegex.exec(content)) !== null) {
+    proseStateIds.add(match[0]);
+  }
+  
+  // Extract state IDs from appendix
+  const appendixStateIds = new Set();
+  if (appendix.states) {
+    for (const state of appendix.states) {
+      if (state.id) appendixStateIds.add(state.id);
+    }
+  }
+  
+  // Check for STATE-* in prose but not in appendix
+  for (const id of proseStateIds) {
+    if (!appendixStateIds.has(id)) {
+      // Find the line where this ID appears in prose
+      const regex = new RegExp(`\\b${id}\\b`, 'g');
+      let lineNum = null;
+      while ((match = regex.exec(content)) !== null) {
+        // Only report if it's in a state reference context (not in JSON string)
+        const before = content.substring(0, match.index);
+        const lastNewline = before.lastIndexOf('\n');
+        const lineContent = content.substring(lastNewline, match.index);
+        if (!lineContent.includes('"') && !lineContent.includes("'")) {
+          lineNum = getLineNumber(content, match.index);
+          break;
+        }
+      }
+      errors.push({
+        type: 'referential',
+        message: `State "${id}" referenced in prose but not defined in appendix`,
+        suggestion: `Add state "${id}" to the states array in the appendix`,
+        line: lineNum
+      });
+    }
+  }
   
   // Validate navigation references
   if (appendix.navigation && appendix.screens) {
@@ -587,6 +622,15 @@ function validateReferentialIntegrity(content, appendix) {
           type: 'referential',
           message: `Navigation "to" references unknown screen: ${nav.to}`,
           suggestion: `Add screen "${nav.to}" to the screens array or fix the navigation entry`,
+          line: null
+        });
+      }
+      // Validate 'to' if it references a STATE-*
+      if (nav.to.startsWith('STATE-') && !appendixStateIds.has(nav.to)) {
+        errors.push({
+          type: 'referential',
+          message: `Navigation "to" references unknown state: ${nav.to}`,
+          suggestion: `Add state "${nav.to}" to the states array or fix the navigation entry`,
           line: null
         });
       }
