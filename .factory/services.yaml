@@ -1,0 +1,11 @@
+commands:
+  install: npm install
+  lint: node tooling/ui-md-linter/ui-md-lint.js
+  lint-all: node tooling/ui-md-linter/ui-md-lint.js samples/kanban/UI.md samples/mobile-onboarding/UI.md samples/cli-dashboard/UI.md
+  test: node --test tooling/ui-md-linter/test*.js 2>/dev/null || echo "No tests found"
+
+services: {}
+
+environment:
+  NODE_VERSION: "18"
+  REPO_DIR: "/root/lovkode.no/ui-md-standard"

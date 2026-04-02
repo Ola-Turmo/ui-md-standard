@@ -611,7 +611,7 @@ The appendix may be:
         "type": "object",
         "required": ["id", "type", "description", "indicators", "allowedActions"],
         "properties": {
-          "id": { "type": "string", "pattern": "^STATE-[A-Z][a-zA-Z0-9]*$" },
+          "id": { "type": "string", "pattern": "^STATE-[A-Za-z][a-zA-Z0-9-]*$" },
           "type": { 
             "type": "string", 
             "enum": ["loading", "empty", "error", "success", "offline", "permission-denied"] 
@@ -635,7 +635,7 @@ The appendix may be:
           "to": { "type": "string", "pattern": "^SCREEN-" },
           "trigger": { "type": "string" },
           "condition": { "type": "string" },
-          "backStack": { "type": "string", "enum": ["Push", "Replace", "No", "Modal"] }
+          "backStack": { "type": "string", "enum": ["Push", "Pop", "Replace", "No", "Modal"] }
         }
       }
     },
@@ -645,7 +645,7 @@ The appendix may be:
         "type": "object",
         "required": ["roleId", "name", "description", "capabilities", "visibleScreens"],
         "properties": {
-          "roleId": { "type": "string", "pattern": "^ROLE-[A-Z][a-zA-Z0-9]*$" },
+          "roleId": { "type": "string", "pattern": "^ROLE-[A-Za-z][a-zA-Z0-9]*$" },
           "name": { "type": "string" },
           "description": { "type": "string" },
           "capabilities": { "type": "array", "items": { "type": "string" } },

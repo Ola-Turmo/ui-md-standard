@@ -1,0 +1,34 @@
+{
+  "featureId": "spec-schema-state-types-alignment",
+  "reviewedAt": "2026-04-02T20:30:00.000Z",
+  "commitId": "90ad989",
+  "transcriptSkeletonReviewed": false,
+  "diffReviewed": true,
+  "status": "fail",
+  "codeReview": {
+    "summary": "Worker expanded SPEC.md from 6 to 13 state types (v1.1), aligning SPEC.md with schema.json's existing 13 types. However, the validation contract VAL-SPEC-001 explicitly requires BOTH Section 9.2 AND Appendix A to contain EXACTLY 6 types with NO additional types permitted. The work violates the validation contract's pass criteria.",
+    "issues": [
+      {
+        "file": "SPEC.md",
+        "line": 722,
+        "severity": "blocking",
+        "description": "Appendix A 'State Type Enumerations' lists 13 types (loading | empty | error | success | offline | permission-denied | idle | scrollback | editing | search-active | streaming | refreshing | field-selected), but VAL-SPEC-001 requires exactly 6 types with no additional types permitted."
+      },
+      {
+        "file": "tooling/ui-md-linter/schema.json",
+        "line": 43,
+        "severity": "blocking",
+        "description": "schema.json states.items.properties.type.enum contains 13 types, but VAL-SPEC-001 requires exactly 6 types (loading, empty, error, success, offline, permission-denied). The extra types (idle, scrollback, editing, search-active, streaming, refreshing, field-selected) are not permitted."
+      },
+      {
+        "file": "SPEC.md",
+        "line": 376,
+        "severity": "non_blocking",
+        "description": "Section 9.2 'Required State Categories' correctly lists only 6 types, but this is inconsistent with Appendix A which lists 13 types."
+      }
+    ]
+  },
+  "sharedStateObservations": [],
+  "addressesFailureFrom": null,
+  "summary": "FAIL - The work expanded SPEC.md to v1.1 with 13 state types, which aligns SPEC.md with schema.json (both now have 13 types). However, the validation contract VAL-SPEC-001 explicitly requires exactly 6 state types with no additional types permitted. The work does not satisfy VAL-SPEC-001's pass criteria. Evidence: SPEC.md Appendix A line 722 lists 13 types; schema.json line 43 has 13 types; validation contract requires exactly 6 types in both."
+}

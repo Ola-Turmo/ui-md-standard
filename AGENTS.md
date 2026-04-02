@@ -360,9 +360,9 @@ This catalog lists common UI.md authoring mistakes, their root causes, and corre
 ### Error 10: Invalid Back-Stack Behavior
 
 **Error Name:** `INVALID_BACK_STACK`  
-**Description:** A navigation transition has a `backStack` value not in the allowed set: `Push`, `Replace`, `No`, `Modal`.  
-**Root Cause:** Author used a freeform value like "back" or "pop" instead of the prescribed options.  
-**Corrective Action:** Review all navigation entries. Ensure `backStack` values are exactly: `Push` (adds to back stack), `Replace` (replaces current), `No` (not added to back stack), or `Modal` (overlay behavior). Correct any deviations.
+**Description:** A navigation transition has a `backStack` value not in the allowed set: `Push`, `Pop`, `Replace`, `No`, `Modal`.  
+**Root Cause:** Author used a freeform value like "back" instead of the prescribed options.  
+**Corrective Action:** Review all navigation entries. Ensure `backStack` values are exactly: `Push` (adds to back stack), `Pop` (removes from back stack), `Replace` (replaces current), `No` (not added to back stack), or `Modal` (overlay behavior). Correct any deviations.
 
 ---
 

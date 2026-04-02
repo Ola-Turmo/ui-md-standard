@@ -1,0 +1,58 @@
+{
+  "featureId": "docs-install-story-fix",
+  "reviewedAt": "2026-04-02T20:30:00.000Z",
+  "commitId": "35d67de",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "Documentation fix correctly removes false npm install claims from README.md Step 4 and accurately documents that the linter is invoked via 'node tooling/ui-md-linter/ui-md-lint.js'. No npm install or npx claims remain in README.md.",
+    "issues": []
+  },
+  "sharedStateObservations": [
+    {
+      "area": "conventions",
+      "observation": "No code changes were made - purely a documentation fix. No convention gaps to report.",
+      "evidence": "Worker correctly identified the issue was documentation-only, not a publish-to-npm solution"
+    },
+    {
+      "area": "skills",
+      "observation": "docs-worker skill procedure was followed correctly. Worker verified npm install fails (404), confirmed README was the only file with false claims, and updated documentation accurately.",
+      "evidence": "Transcript shows grep for 'npm install.*ui-md-linter|npx ui-md-linter' returned no matches in README.md after fix"
+    },
+    {
+      "area": "services",
+      "observation": "No services or commands were started that should be in services.yaml. Linter was invoked locally as documented.",
+      "evidence": "Verification commands ran linter directly via node, matching the documented invocation"
+    },
+    {
+      "area": "knowledge",
+      "observation": "No new knowledge gaps discovered. The linter's non-published-to-npm status is already implicit in the codebase structure (no package.json in tooling/ui-md-linter that publishes to npm).",
+      "evidence": "tooling/ui-md-linter/ has no npm publish configuration"
+    }
+  ],
+  "addressesFailureFrom": null,
+  "validationChecks": [
+    {
+      "check": "npm install -g ui-md-linter works",
+      "result": "FAIL",
+      "detail": "Package does not exist on npm (404 Not Found). This is expected and acceptable per VAL-DOCS-002 option B."
+    },
+    {
+      "check": "README.md accurately documents invocation",
+      "result": "PASS",
+      "detail": "README.md Step 4 now correctly documents 'node tooling/ui-md-linter/ui-md-lint.js ./UI.md' with explanation that no global install is required."
+    },
+    {
+      "check": "No false npm install claims remain in README.md",
+      "result": "PASS",
+      "detail": "grep for 'npm install.*ui-md-linter|npx ui-md-linter' returns no matches in README.md"
+    },
+    {
+      "check": "Documented invocation actually works",
+      "result": "PASS",
+      "detail": "Linter runs successfully with 'node tooling/ui-md-linter/ui-md-lint.js ./UI.md' and all 3 sample files pass validation"
+    }
+  ],
+  "summary": "Feature PASS. The worker correctly chose option B of VAL-DOCS-002: since npm install -g ui-md-linter does not work (package not published to npm), the README.md was updated to accurately document the actual invocation method 'node tooling/ui-md-linter/ui-md-lint.js'. False npm install and npx claims were removed. The linter was verified to work correctly with the documented invocation. No blocking issues found."
+}

@@ -1,0 +1,34 @@
+{
+  "featureId": "spec-schema-backstack-alignment",
+  "reviewedAt": "2026-04-02T20:30:00.000Z",
+  "commitId": "988e203",
+  "transcriptSkeletonReviewed": false,
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "Feature correctly adds Pop to SPEC.md Section 6.5 and Appendix A, aligning with schema.json and validating samples that use Pop. All three sample files pass linting.",
+    "issues": [
+      {
+        "file": "SPEC.md",
+        "line": 638,
+        "severity": "non_blocking",
+        "description": "Embedded JSON schema example in Section 11 still shows backStack enum as [\"Push\", \"Replace\", \"No\", \"Modal\"] — missing Pop. Prose sections 6.5 and Appendix A correctly include Pop. This is a documentation inconsistency but outside the scope of VAL-SPEC-002 which only checks Section 6.5 and Appendix A."
+      },
+      {
+        "file": "AGENTS.md",
+        "line": 363,
+        "severity": "non_blocking",
+        "description": "Error 10 (Invalid Back-Stack Behavior) lists only 4 values: Push, Replace, No, Modal. Missing Pop. This is a secondary doc inconsistency, not flagged by validation contract."
+      }
+    ]
+  },
+  "sharedStateObservations": [
+    {
+      "area": "conventions",
+      "observation": "AGENTS.md Error 10 lists back-stack values as 'Push, Replace, No, Modal' (4 values) but SPEC.md Section 6.5 and Appendix A now list 5 values including Pop. AGENTS.md was not updated by this feature and remains inconsistent with the current SPEC.",
+      "evidence": "AGENTS.md line 363 vs SPEC.md Section 6.5 and Appendix A"
+    }
+  ],
+  "addressesFailureFrom": null,
+  "summary": "PASS — Feature correctly implements Option A: added Pop to SPEC.md Section 6.5 and Appendix A with description ('Current screen removed from back stack; returns to previous screen'), added v1.1 changelog note. Aligns with schema.json (already had Pop) and validates all 3 samples (kanban, cli-dashboard, mobile-onboarding) that use Pop. Secondary issue: embedded JSON schema example in SPEC.md Section 11 and AGENTS.md Error 10 still show 4 values — documentation inconsistencies outside the validation contract scope."
+}

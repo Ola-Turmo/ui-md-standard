@@ -1,0 +1,29 @@
+{
+  "featureId": "docs-repo-references-fix",
+  "reviewedAt": "2026-04-02T20:30:00.000Z",
+  "commitId": "dddedbe",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "Feature successfully normalizes all repository references from ui-md-standard to Ola-Turmo/UI.md across documentation files. Changes include README.md (clone URL), AGENTS.md (SPEC.md link), CONTRIBUTING.md (fork clone URL), and tooling/vscode-extension/README.md. Additionally updated validation JSON assertion files.",
+    "issues": []
+  },
+  "sharedStateObservations": [],
+  "addressesFailureFrom": null,
+  "validationChecks": [
+    {
+      "validationId": "VAL-DOCS-001",
+      "description": "All documentation files reference github.com/Ola-Turmo/UI.md not github.com/Ola-Turmo/ui-md-standard",
+      "status": "pass",
+      "evidence": "grep -r 'github\\.com.*ui-md-standard' found zero matches in all .md files. Confirmed correct references in: README.md:143 (clone URL), AGENTS.md:135 (SPEC.md link), CONTRIBUTING.md:38 (fork clone URL), tooling/vscode-extension/README.md:3,34 (repo link and clone URL)"
+    },
+    {
+      "validationId": "VAL-DOCS-004",
+      "description": "README.md, AGENTS.md, CONTRIBUTING.md have no broken links",
+      "status": "pass",
+      "evidence": "Verified all HTTP links in the three specified files: README.md has valid GitHub clone URL, shields.io badges, opensource.org license link; AGENTS.md has valid GitHub SPEC.md link; CONTRIBUTING.md has valid GitHub fork clone URL with variable username. All external links (Node.js, VS Code, shields.io, opensource.org) are well-formed URLs to known valid domains."
+    }
+  ],
+  "summary": "Review PASS. Feature correctly updates all repository references from ui-md-standard to Ola-Turmo/UI.md in documentation files. Zero occurrences of incorrect GitHub URL found. All links verified to be properly formatted."
+}
