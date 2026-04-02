@@ -188,7 +188,7 @@ The core loop is: view status on the dashboard, execute commands to inspect or m
 | SCREEN-command | SCREEN-command | Command completes | Exit code 0 | Replace (same screen) |
 | SCREEN-command | SCREEN-command | Command completes | Exit code non-zero | Replace (same screen, STATE-error) |
 | SCREEN-command | SCREEN-command | Ctrl+Z | Command running | Replace (STATE-idle) |
-| SCREEN-command | SCREEN-pager | Output exceeds terminal height | Streaming output | Push (overlay) |
+| SCREEN-command | SCREEN-command | Output exceeds terminal height | STATE-pager | Push (overlay) |
 | SCREEN-config | SCREEN-dashboard | Save and exit | — | Pop |
 | SCREEN-config | SCREEN-dashboard | Cancel or Escape | — | Pop |
 | SCREEN-help | SCREEN-dashboard | Press `q` | — | Pop |
@@ -959,6 +959,14 @@ Fields:
       "indicators": ["Search prompt (/) at bottom", "Match count shown (e.g., 7/23)", "Current match highlighted"],
       "allowedActions": ["Continue typing search", "n/N for next/previous match", "Enter to jump and close search", "Escape to cancel search"],
       "blockedActions": []
+    },
+    {
+      "id": "STATE-refreshing",
+      "type": "loading",
+      "description": "Dashboard is actively refreshing service status indicators and metric data.",
+      "indicators": ["Auto-refresh spinner in header", "Status indicators updating", "Last-refreshed timestamp updating"],
+      "allowedActions": ["Toggle auto-refresh off", "Navigate to other screens", "View service details"],
+      "blockedActions": []
     }
   ],
   "navigation": [
@@ -970,7 +978,7 @@ Fields:
     { "from": "SCREEN-command", "to": "SCREEN-command", "trigger": "Command completes", "condition": "Exit code 0", "backStack": "Replace" },
     { "from": "SCREEN-command", "to": "SCREEN-command", "trigger": "Command completes", "condition": "Exit code non-zero", "backStack": "Replace" },
     { "from": "SCREEN-command", "to": "SCREEN-command", "trigger": "Ctrl+Z", "condition": "Command running", "backStack": "Replace" },
-    { "from": "SCREEN-command", "to": "SCREEN-pager", "trigger": "Output exceeds terminal height", "condition": "Streaming output", "backStack": "Push" },
+    { "from": "SCREEN-command", "to": "SCREEN-command", "trigger": "Output exceeds terminal height", "condition": "STATE-pager", "backStack": "Push" },
     { "from": "SCREEN-config", "to": "SCREEN-dashboard", "trigger": "Save and exit", "backStack": "Pop" },
     { "from": "SCREEN-config", "to": "SCREEN-dashboard", "trigger": "Cancel or Escape", "backStack": "Pop" },
     { "from": "SCREEN-help", "to": "SCREEN-dashboard", "trigger": "Press q", "backStack": "Pop" },
