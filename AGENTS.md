@@ -132,7 +132,7 @@ Produce a complete UI.md file for the following product:
 
 ## Requirements
 
-1. Follow UI.md Standard version 1.0 as defined in SPEC.md (https://github.com/Ola-Turmo/ui-md-standard/blob/main/SPEC.md)
+1. Follow UI.md Standard version 1.0 as defined in SPEC.md (https://github.com/Ola-Turmo/UI.md/blob/main/SPEC.md)
 
 2. Use these ID formats consistently:
    - Screens: SCREEN-<PascalCaseName> (e.g., SCREEN-documentList)

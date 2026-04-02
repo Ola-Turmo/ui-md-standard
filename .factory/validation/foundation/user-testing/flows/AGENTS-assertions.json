@@ -6,7 +6,7 @@
     "localPath": "/root/lovkode.no/ui-md-standard",
     "branch": "master",
     "commitId": "e5b6b0e",
-    "githubUrl": "https://github.com/Ola-Turmo/ui-md-standard"
+    "githubUrl": "https://github.com/Ola-Turmo/UI.md"
   },
   "toolsUsed": ["scrutiny", "manual"],
   "assertions": [

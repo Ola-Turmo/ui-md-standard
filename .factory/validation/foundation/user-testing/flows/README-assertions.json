@@ -4,7 +4,7 @@
   "isolation": {
     "repository": "Ola-Turmo/ui-md-standard",
     "localPath": "/root/lovkode.no/ui-md-standard",
-    "githubUrl": "https://github.com/Ola-Turmo/ui-md-standard",
+    "githubUrl": "https://github.com/Ola-Turmo/UI.md",
     "branch": "master"
   },
   "toolsUsed": ["agent-browser", "curl", "grep"],

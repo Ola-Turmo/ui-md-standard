@@ -35,7 +35,7 @@ We use a **fork-based contribution model** with a stable main branch. This model
 ### Workflow
 
 1. **Fork** the repository into your own GitHub account
-2. **Clone** your fork locally: `git clone https://github.com/<your-username>/ui-md-standard.git`
+2. **Clone** your fork locally: `git clone https://github.com/<your-username>/UI.md.git`
 3. **Create a feature branch** from `main`:
    ```bash
    git checkout -b feat/my-new-feature

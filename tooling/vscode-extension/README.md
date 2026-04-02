@@ -1,6 +1,6 @@
 # UI.md Standard VS Code Extension
 
-A VS Code extension that provides language support, validation diagnostics, and preview capabilities for [UI.md](https://github.com/Ola-Turmo/ui-md-standard) files.
+A VS Code extension that provides language support, validation diagnostics, and preview capabilities for [UI.md](https://github.com/Ola-Turmo/UI.md) files.
 
 ## Features
 
@@ -31,8 +31,8 @@ Provides a preview panel for viewing rendered UI.md content with proper formatti
 
 1. **Clone the repository** (if not already):
    ```bash
-   git clone https://github.com/Ola-Turmo/ui-md-standard.git
-   cd ui-md-standard
+   git clone https://github.com/Ola-Turmo/UI.md.git
+   cd UI.md
    ```
 
 2. **Install dependencies**:

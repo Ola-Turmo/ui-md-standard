@@ -140,8 +140,8 @@ The `ui-md-linter` validates your UI.md files against the standard schema.
 
 ```bash
 # Clone the repository
-git clone https://github.com/Ola-Turmo/ui-md-standard.git
-cd ui-md-standard
+git clone https://github.com/Ola-Turmo/UI.md.git
+cd UI.md
 
 # Install dependencies (if needed)
 npm install

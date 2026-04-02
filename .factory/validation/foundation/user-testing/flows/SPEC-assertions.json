@@ -4,7 +4,7 @@
   "isolation": {
     "repository": "Ola-Turmo/ui-md-standard",
     "localPath": "/root/lovkode.no/ui-md-standard",
-    "githubUrl": "https://github.com/Ola-Turmo/ui-md-standard",
+    "githubUrl": "https://github.com/Ola-Turmo/UI.md",
     "branch": "master"
   },
   "toolsUsed": ["agent-browser", "scrutiny (file content analysis)"],
@@ -14,7 +14,7 @@
       "title": "SPEC.md existence and readability",
       "status": "pass",
       "steps": [
-        { "action": "Open GitHub SPEC.md URL", "expected": "Page loads without error", "observed": "Page loaded successfully at https://github.com/Ola-Turmo/ui-md-standard/blob/master/SPEC.md" },
+        { "action": "Open GitHub SPEC.md URL", "expected": "Page loads without error", "observed": "Page loaded successfully at https://github.com/Ola-Turmo/UI.md/blob/master/SPEC.md" },
         { "action": "Verify no rendering errors", "expected": "No 'Unable to render' errors", "observed": "No console errors detected" },
         { "action": "Capture screenshot", "expected": "Screenshot saved", "observed": "Screenshot saved to evidence directory" }
       ],
