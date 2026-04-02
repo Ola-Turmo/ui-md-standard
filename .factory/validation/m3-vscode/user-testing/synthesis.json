@@ -1,12 +1,12 @@
 {
   "milestone": "m3-vscode",
-  "round": 2,
-  "status": "failure",
+  "round": 1,
+  "status": "fail",
   "assertionsSummary": {
     "total": 6,
     "passed": 4,
     "failed": 2,
-    "blocked": 0
+    "blocked": 2
   },
   "passedAssertions": [
     "VAL-VSCODE-001",
@@ -24,13 +24,17 @@
       "reason": "BLOCKED: VS Code runtime not available in environment. Linter passes on all sample files (exit code 0, JSON output confirmed), extension.js correctly handles passed case (no diagnostics created when errors array is empty), but cannot verify actual VS Code Problems panel without VS Code."
     }
   ],
-  "blockedAssertions": [],
-  "appliedUpdates": [
+  "blockedAssertions": [
     {
-      "target": "user-testing.md",
-      "description": "Confirmed VS Code extension assertions 004/005 require VS Code desktop runtime which is not available. extension.js correctly spawns linter with --json flag and produces Diagnostic objects matching linter errors. Linter JSON output verified for both valid (samples pass) and invalid (tooling/vscode-extension/README.md returns errors) cases.",
-      "source": "flow-report"
+      "id": "VAL-VSCODE-004",
+      "blockedBy": "VS Code runtime not available in environment"
+    },
+    {
+      "id": "VAL-VSCODE-005",
+      "blockedBy": "VS Code runtime not available in environment"
     }
   ],
-  "previousRound": ".factory/validation/m3-vscode/user-testing/synthesis.json"
+  "appliedUpdates": [],
+  "previousRound": null,
+  "notes": "No pending assertions to test. All m3-vscode assertions have been validated in prior rounds. VSCODE-004 and VSCODE-005 remain blocked due to absence of VS Code runtime in the validation environment."
 }
