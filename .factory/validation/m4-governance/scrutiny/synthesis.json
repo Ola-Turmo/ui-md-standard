@@ -1,0 +1,42 @@
+{
+  "milestone": "m4-governance",
+  "round": 1,
+  "status": "pass",
+  "validatorsRun": {
+    "test": {
+      "passed": true,
+      "command": "node tooling/ui-md-linter/ui-md-lint.test.js",
+      "exitCode": 0,
+      "output": "35 tests, 0 failures, 13 suites"
+    },
+    "typecheck": {
+      "passed": true,
+      "command": "N/A - no TypeScript in project",
+      "exitCode": 0
+    },
+    "lint": {
+      "passed": true,
+      "command": "node tooling/ui-md-linter/ui-md-lint.js samples/kanban/UI.md samples/mobile-onboarding/UI.md samples/cli-dashboard/UI.md",
+      "exitCode": 0,
+      "output": "All files passed validation!"
+    }
+  },
+  "reviewsSummary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "failedFeatures": []
+  },
+  "blockingIssues": [],
+  "appliedUpdates": [],
+  "suggestedGuidanceUpdates": [
+    {
+      "target": "validation-contract.md",
+      "suggestion": "VAL-GH-003 evidence check uses '[ -d \".github/PULL_REQUEST_TEMPLATE\" ]' (directory check) but GitHub's standard convention for PR templates is a single file '.github/PULL_REQUEST_TEMPLATE.md', not a directory. Update the evidence check to '[ -f \".github/PULL_REQUEST_TEMPLATE.md\" ]' to match actual GitHub convention.",
+      "evidence": "Feature community-templates correctly uses .github/PULL_REQUEST_TEMPLATE.md (file) per GitHub standard, but validation contract checks for directory.",
+      "isSystemic": false
+    }
+  ],
+  "rejectedObservations": [],
+  "previousRound": null
+}
