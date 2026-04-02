@@ -1,28 +1,28 @@
 {
   "featureId": "spec-schema-id-formats-alignment",
-  "reviewedAt": "2026-04-02T20:30:00Z",
-  "commitId": "76f72b2",
+  "reviewedAt": "2026-04-02T21:00:00.000Z",
+  "commitId": "b6cc1ac",
   "transcriptSkeletonReviewed": true,
   "diffReviewed": true,
-  "status": "fail",
+  "status": "pass",
   "codeReview": {
-    "summary": "Worker correctly aligned Screen ID format (SCREEN-<lowerCamelCase>) between SPEC.md, schema.json, and samples. However, the STATE and ROLE ID patterns in SPEC.md's embedded JSON schema were NOT updated, creating inconsistent alignment for those ID types.",
-    "issues": [
-      {
-        "file": "SPEC.md",
-        "line": 614,
-        "severity": "blocking",
-        "description": "STATE ID embedded schema pattern is '^STATE-[A-Z][a-zA-Z0-9]*$' (PascalCase only, no hyphens) but schema.json uses '^STATE-[A-Za-z][a-zA-Z0-9-]*$' (allows lowercase and hyphens). Samples use 'STATE-empty-board', 'STATE-validation-error', 'STATE-search-active' which contain hyphens not matched by SPEC's embedded pattern."
-      },
-      {
-        "file": "SPEC.md",
-        "line": 648,
-        "severity": "blocking",
-        "description": "ROLE ID embedded schema pattern is '^ROLE-[A-Z][a-zA-Z0-9]*$' (PascalCase only) but schema.json uses '^ROLE-[A-Za-z][a-zA-Z0-9]*$' (allows lowercase). Samples use 'ROLE-authenticated' (lowercase 'a' after hyphen) which is not matched by SPEC's embedded pattern."
-      }
-    ]
+    "summary": "The original blocking issue (SPEC.md embedded schema patterns for STATE and ROLE IDs not updated to match schema.json) has been fixed. Commit b6cc1ac updated: STATE pattern from ^STATE-[A-Z][a-zA-Z0-9]*$ to ^STATE-[A-Za-z][a-zA-Z0-9-]*$, ROLE pattern from ^ROLE-[A-Z][a-zA-Z0-9]*$ to ^ROLE-[A-Za-z][a-zA-Z0-9]*$, and backStack enum to include Pop.",
+    "issues": []
   },
-  "sharedStateObservations": [],
+  "sharedStateObservations": [
+    {
+      "area": "conventions",
+      "observation": "The fix for the original blocking issue was applied in a separate commit (b6cc1ac) after the feature's own commit (76f72b2). The original feature commit only addressed SCREEN ID format (PascalCase → lowerCamelCase). The STATE/ROLE pattern fix came later via the scrutiny fix-up process.",
+      "evidence": "Commit 76f72b2 changed SCREEN format only. Commit b6cc1ac fixed STATE/ROLE patterns. Original issue from progress_log.jsonl line 46: 'SPEC.md embedded JSON schema patterns for STATE (line 614) and ROLE (line 648) IDs were not updated'"
+    }
+  ],
   "addressesFailureFrom": null,
-  "summary": "FAIL: Screen ID format was correctly aligned (SCREEN-<lowerCamelCase>) across SPEC.md, schema.json, and samples. However, STATE and ROLE ID patterns in SPEC.md's embedded JSON schema (lines 614 and 648) were not updated to match schema.json's more permissive patterns. This leaves VAL-SPEC-004 (State ID consistency) and VAL-SPEC-005 (Role ID consistency) unfulfilled. The worker only addressed the SCREEN ID portion of the feature scope as described in the feature description, but the validation contract includes all three ID types."
+  "fixVerification": {
+    "specStatePatternLine614": "^STATE-[A-Za-z][a-zA-Z0-9-]*$",
+    "specRolePatternLine648": "^ROLE-[A-Za-z][a-zA-Z0-9]*$",
+    "schemaStatePattern": "^STATE-[A-Za-z][a-zA-Z0-9-]*$",
+    "schemaRolePattern": "^ROLE-[A-Za-z][a-zA-Z0-9]*$",
+    "allPatternsAligned": true
+  },
+  "summary": "The original blocking issue has been resolved. SPEC.md embedded schema STATE pattern (line 614) and ROLE pattern (line 648) now match schema.json patterns. All patterns allow [A-Za-z] after the hyphen and hyphens within the identifier body. The fix was applied in commit b6cc1ac. Status: PASS."
 }

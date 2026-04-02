@@ -1,34 +1,28 @@
 {
   "featureId": "spec-schema-state-types-alignment",
-  "reviewedAt": "2026-04-02T20:30:00.000Z",
+  "reviewedAt": "2026-04-02T20:45:00.000Z",
   "commitId": "90ad989",
   "transcriptSkeletonReviewed": false,
   "diffReviewed": true,
   "status": "fail",
   "codeReview": {
-    "summary": "Worker expanded SPEC.md from 6 to 13 state types (v1.1), aligning SPEC.md with schema.json's existing 13 types. However, the validation contract VAL-SPEC-001 explicitly requires BOTH Section 9.2 AND Appendix A to contain EXACTLY 6 types with NO additional types permitted. The work violates the validation contract's pass criteria.",
+    "summary": "Worker expanded SPEC.md prose sections from 6 to 13 state types (v1.1), but the embedded JSON schema at SPEC.md lines 615-617 was NOT updated. It still contains only 6 types: [\"loading\", \"empty\", \"error\", \"success\", \"offline\", \"permission-denied\"]. The schema.json file has 13 types. VAL-SPEC-001 requires 'No types present in one but not the other' — the embedded schema in SPEC.md must match schema.json exactly.",
     "issues": [
       {
         "file": "SPEC.md",
-        "line": 722,
+        "line": 617,
         "severity": "blocking",
-        "description": "Appendix A 'State Type Enumerations' lists 13 types (loading | empty | error | success | offline | permission-denied | idle | scrollback | editing | search-active | streaming | refreshing | field-selected), but VAL-SPEC-001 requires exactly 6 types with no additional types permitted."
-      },
-      {
-        "file": "tooling/ui-md-linter/schema.json",
-        "line": 43,
-        "severity": "blocking",
-        "description": "schema.json states.items.properties.type.enum contains 13 types, but VAL-SPEC-001 requires exactly 6 types (loading, empty, error, success, offline, permission-denied). The extra types (idle, scrollback, editing, search-active, streaming, refreshing, field-selected) are not permitted."
-      },
-      {
-        "file": "SPEC.md",
-        "line": 376,
-        "severity": "non_blocking",
-        "description": "Section 9.2 'Required State Categories' correctly lists only 6 types, but this is inconsistent with Appendix A which lists 13 types."
+        "description": "Embedded JSON schema 'type' enum has only 6 values: [\"loading\", \"empty\", \"error\", \"success\", \"offline\", \"permission-denied\"]. schema.json has 13 values including the 7 extended types (idle, scrollback, editing, search-active, streaming, refreshing, field-selected). VAL-SPEC-001 fails because the embedded schema in SPEC.md does not match schema.json."
       }
     ]
   },
-  "sharedStateObservations": [],
+  "sharedStateObservations": [
+    {
+      "area": "conventions",
+      "observation": "Worker updated prose sections (Section 9.2.1, Section 9.3 table, Appendix A) to 13 types but missed the embedded JSON schema (YAML code block at end of SPEC.md). The diff confirms only 37 lines were inserted affecting prose sections, not the embedded schema JSON. No validation caught this discrepancy.",
+      "evidence": "git diff 90ad989 shows prose changes but embedded schema enum unchanged. SPEC.md line 617 shows enum with 6 values."
+    }
+  ],
   "addressesFailureFrom": null,
-  "summary": "FAIL - The work expanded SPEC.md to v1.1 with 13 state types, which aligns SPEC.md with schema.json (both now have 13 types). However, the validation contract VAL-SPEC-001 explicitly requires exactly 6 state types with no additional types permitted. The work does not satisfy VAL-SPEC-001's pass criteria. Evidence: SPEC.md Appendix A line 722 lists 13 types; schema.json line 43 has 13 types; validation contract requires exactly 6 types in both."
+  "summary": "FAIL - The fix partially addresses the original failure (prose sections now show 13 types), but introduces a new blocking issue: the embedded JSON schema in SPEC.md (lines 615-617) still has only 6 types while schema.json has 13. VAL-SPEC-001 explicitly requires no discrepancy between SPEC.md state type enum and schema.json state type enum. The embedded schema must be updated to include all 13 types."
 }
