@@ -614,7 +614,7 @@ The appendix may be:
           "id": { "type": "string", "pattern": "^STATE-[A-Za-z][a-zA-Z0-9-]*$" },
           "type": { 
             "type": "string", 
-            "enum": ["loading", "empty", "error", "success", "offline", "permission-denied"] 
+            "enum": ["loading", "empty", "error", "success", "offline", "permission-denied", "idle", "scrollback", "editing", "search-active", "streaming", "refreshing", "field-selected"] 
           },
           "description": { "type": "string" },
           "userMessage": { "type": "string" },
