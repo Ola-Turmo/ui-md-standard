@@ -42,11 +42,11 @@
       "patterns": [
         {
           "name": "entity.name.type.ui-md",
-          "match": "\\b(SCREEN-[A-Z][A-Za-z0-9_-]+)\\b"
+          "match": "\\b(SCREEN-[A-Za-z][A-Za-z0-9_-]+)\\b"
         },
         {
           "name": "support.class.ui-md",
-          "match": "\\b(Screen-[A-Z][A-Za-z0-9_-]+)\\b"
+          "match": "\\b(Screen-[A-Za-z][A-Za-z0-9_-]+)\\b"
         }
       ]
     },
@@ -54,11 +54,11 @@
       "patterns": [
         {
           "name": "constant.language.ui-md",
-          "match": "\\b(STATE-[A-Z][A-Za-z0-9_-]+)\\b"
+          "match": "\\b(STATE-[A-Za-z][A-Za-z0-9_-]+)\\b"
         },
         {
           "name": "support.type.ui-md",
-          "match": "\\b(State-[A-Z][A-Za-z0-9_-]+)\\b"
+          "match": "\\b(State-[A-Za-z][A-Za-z0-9_-]+)\\b"
         }
       ]
     },
