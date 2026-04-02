@@ -6,6 +6,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const yaml = require('js-yaml');
 
 // ANSI color codes for output
 const colors = {
@@ -281,6 +282,92 @@ function extractJsonAppendix(content) {
   }
 }
 
+// Extract YAML appendix from Markdown
+function extractYamlAppendix(content) {
+  const yamlBlockRegex = /```yaml\s*([\s\S]*?)\s*```/i;
+  const match = content.match(yamlBlockRegex);
+  if (!match) {
+    return { yaml: null, line: null };
+  }
+  
+  const yamlContent = match[1];
+  const yamlStartIndex = match.index + match[0].indexOf(yamlContent);
+  const line = getLineNumber(content, yamlStartIndex);
+  
+  try {
+    const parsed = yaml.load(yamlContent);
+    return { yaml: parsed, line };
+  } catch (err) {
+    return { yaml: null, line, parseError: err.message };
+  }
+}
+
+// Extract appendix (tries JSON first, then YAML)
+function extractAppendix(content) {
+  // Try JSON first
+  const jsonResult = extractJsonAppendix(content);
+  if (jsonResult.json !== null) {
+    return { format: 'json', data: jsonResult.json, line: jsonResult.line, error: jsonResult.parseError };
+  }
+  
+  // Try YAML
+  const yamlResult = extractYamlAppendix(content);
+  if (yamlResult.yaml !== null) {
+    return { format: 'yaml', data: yamlResult.yaml, line: yamlResult.line, error: yamlResult.parseError };
+  }
+  
+  return { format: null, data: null, line: null, error: null };
+}
+
+// Validate JSON or YAML appendix
+function validateJsonAppendix(content, validator) {
+  const errors = [];
+  const result = extractAppendix(content);
+  
+  if (result.format === 'json' && result.error) {
+    errors.push({
+      type: 'json-parse',
+      message: `Invalid JSON in appendix: ${result.error}`,
+      suggestion: 'Fix the JSON syntax in the appendix block',
+      line: result.line
+    });
+    return errors;
+  }
+  
+  if (result.format === 'yaml' && result.error) {
+    errors.push({
+      type: 'yaml-parse',
+      message: `Invalid YAML in appendix: ${result.error}`,
+      suggestion: 'Fix the YAML syntax in the appendix block',
+      line: result.line
+    });
+    return errors;
+  }
+  
+  if (result.data === null) {
+    errors.push({
+      type: 'appendix-missing',
+      message: 'Missing appendix block (JSON or YAML)',
+      suggestion: 'Add a code block (```json or ```yaml) with the machine-readable appendix',
+      line: null
+    });
+    return errors;
+  }
+  
+  // Validate against schema
+  const schemaErrors = validator.validate(result.data);
+  for (const err of schemaErrors) {
+    errors.push({
+      type: 'schema',
+      message: err.path ? `[${err.path}] ${err.message}` : err.message,
+      suggestion: err.suggestion,
+      line: result.line
+    });
+  }
+  
+  return errors;
+}
+
 // Validate Markdown structure
 function validateMarkdownStructure(content) {
   const errors = [];
@@ -365,45 +452,6 @@ function validateRoleIds(content) {
         line: info.line
       });
     }
-  }
-  
-  return errors;
-}
-
-// Validate JSON appendix
-function validateJsonAppendix(content, validator) {
-  const errors = [];
-  const { json, line, parseError } = extractJsonAppendix(content);
-  
-  if (parseError) {
-    errors.push({
-      type: 'json-parse',
-      message: `Invalid JSON in appendix: ${parseError}`,
-      suggestion: 'Fix the JSON syntax in the appendix block',
-      line
-    });
-    return errors;
-  }
-  
-  if (json === null) {
-    errors.push({
-      type: 'json-missing',
-      message: 'Missing JSON appendix block',
-      suggestion: 'Add a JSON code block (```json) with the machine-readable appendix',
-      line: null
-    });
-    return errors;
-  }
-  
-  // Validate against schema
-  const schemaErrors = validator.validate(json);
-  for (const err of schemaErrors) {
-    errors.push({
-      type: 'schema',
-      message: err.path ? `[${err.path}] ${err.message}` : err.message,
-      suggestion: err.suggestion,
-      line
-    });
   }
   
   return errors;
@@ -560,11 +608,11 @@ function lintFile(filePath) {
   // Validate JSON appendix
   errors.push(...validateJsonAppendix(content, validator));
   
-  // Get parsed JSON for referential checks
-  const { json: appendix } = extractJsonAppendix(content);
+  // Get parsed appendix (JSON or YAML) for referential checks
+  const { data: appendix } = extractAppendix(content);
   
   // Validate referential integrity
-  if (!errors.some(e => e.type === 'json-parse' || e.type === 'json-missing')) {
+  if (!errors.some(e => e.type === 'json-parse' || e.type === 'yaml-parse' || e.type === 'appendix-missing')) {
     errors.push(...validateReferentialIntegrity(content, appendix));
   }
   
@@ -594,8 +642,9 @@ ${colors.yellow}Error types:${colors.reset}
   structure       Missing or out-of-order required sections
   duplicate-id    Duplicate screen/state/role IDs
   json-parse      Invalid JSON syntax in appendix
-  json-missing    Missing JSON appendix block
-  schema          JSON does not match schema
+  yaml-parse      Invalid YAML syntax in appendix
+  appendix-missing Missing JSON or YAML appendix block
+  schema          Appendix does not match schema
   referential     References to undefined screens/states/navigation
   file-not-found  File does not exist
   read-error      Could not read file
