@@ -1,0 +1,59 @@
+{
+  "milestone": "m1-foundations",
+  "round": 1,
+  "status": "fail",
+  "validatorsRun": {
+    "lint-all": {
+      "passed": true,
+      "command": "node tooling/ui-md-linter/ui-md-lint.js samples/kanban/UI.md samples/mobile-onboarding/UI.md samples/cli-dashboard/UI.md",
+      "exitCode": 0,
+      "observation": "All 3 samples passed validation: kanban, mobile-onboarding, cli-dashboard"
+    },
+    "test": {
+      "passed": true,
+      "command": "node --test tooling/ui-md-linter/test*.js",
+      "exitCode": 0,
+      "observation": "No test files found (tests for m2-linter-ci milestone not yet implemented)"
+    },
+    "lint": {
+      "passed": true,
+      "command": "node tooling/ui-md-linter/ui-md-lint.js",
+      "exitCode": 0,
+      "observation": "Shows usage message when run without files - linter itself is functional"
+    }
+  },
+  "reviewsSummary": {
+    "total": 6,
+    "passed": 4,
+    "failed": 2,
+    "failedFeatures": [
+      "spec-schema-state-types-alignment",
+      "spec-schema-id-formats-alignment"
+    ]
+  },
+  "blockingIssues": [
+    {
+      "featureId": "spec-schema-state-types-alignment",
+      "severity": "blocking",
+      "description": "VAL-SPEC-001 requires exactly 6 state types (loading, empty, error, success, offline, permission-denied) with no additional types permitted. However, SPEC.md Appendix A (line 722) and schema.json (line 43) now both contain 13 types including idle, scrollback, editing, search-active, streaming, refreshing, field-selected. The work expanded SPEC to v1.1 but VAL-SPEC-001 explicitly requires the original 6-type set.",
+      "evidence": "SPEC.md Appendix A line 722 lists 13 types; schema.json line 43 has 13 types; VAL-SPEC-001 pass criteria requires exactly 6 types"
+    },
+    {
+      "featureId": "spec-schema-id-formats-alignment",
+      "severity": "blocking",
+      "description": "VAL-SPEC-004 and VAL-SPEC-005 require STATE and ROLE ID patterns in SPEC.md to match schema.json. However, SPEC.md embedded JSON schema (lines 614, 648) was not updated: STATE pattern still '^STATE-[A-Z]' (no hyphens) vs schema.json '^STATE-[A-Za-z][a-zA-Z0-9-]*$'; ROLE pattern still '^ROLE-[A-Z]' vs schema.json '^ROLE-[A-Za-z]'. Samples use 'STATE-empty-board' (hyphens) and 'ROLE-authenticated' (lowercase) which don't match the embedded schema.",
+      "evidence": "SPEC.md embedded schema lines 614 and 648 vs schema.json patterns and actual sample IDs"
+    }
+  ],
+  "appliedUpdates": [],
+  "suggestedGuidanceUpdates": [
+    {
+      "target": "AGENTS.md",
+      "suggestion": "Update Error 10 (Invalid Back-Stack Behavior) to include 'Pop' as a valid back-stack value, consistent with SPEC.md Section 6.5 and Appendix A which now list Push, Replace, Pop, No, Modal.",
+      "evidence": "spec-schema-backstack-alignment review found AGENTS.md line 363 still shows only 4 values: Push, Replace, No, Modal",
+      "isSystemic": false
+    }
+  ],
+  "rejectedObservations": [],
+  "previousRound": null
+}
