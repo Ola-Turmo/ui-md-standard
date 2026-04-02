@@ -162,7 +162,7 @@ Each screen entry must include the following fields:
 
 ### 5.3 Screen ID Naming Convention
 
-- Format: `SCREEN-<PascalCaseName>`
+- Format: `SCREEN-<lowerCamelCaseName>`
 - Examples: `SCREEN-login`, `SCREEN-documentList`, `SCREEN-cardDetail`
 - IDs must be unique within the document
 - IDs must be referenced consistently in the navigation graph and appendix
@@ -595,7 +595,7 @@ The appendix may be:
         "type": "object",
         "required": ["id", "purpose", "primaryActions", "entryConditions", "exitConditions", "states", "roleAccess"],
         "properties": {
-          "id": { "type": "string", "pattern": "^SCREEN-[A-Z][a-zA-Z0-9]*$" },
+          "id": { "type": "string", "pattern": "^SCREEN-[A-Za-z][a-zA-Z0-9]*$" },
           "purpose": { "type": "string" },
           "primaryActions": { "type": "array", "items": { "type": "string" } },
           "entryConditions": { "type": "array", "items": { "type": "string" } },
@@ -709,7 +709,7 @@ The appendix schema defined here is compatible with `tooling/ui-md-linter/schema
 
 ### Screen ID Format
 ```
-SCREEN-<PascalCaseName>
+SCREEN-<lowerCamelCaseName>
 Example: SCREEN-documentList, SCREEN-cardDetail
 ```
 
