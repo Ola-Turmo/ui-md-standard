@@ -1,0 +1,76 @@
+{
+  "milestone": "m2-linter-ci",
+  "round": 1,
+  "status": "fail",
+  "validatorsRun": {
+    "test": {
+      "passed": true,
+      "command": "node tooling/ui-md-linter/ui-md-lint.test.js",
+      "exitCode": 0,
+      "output": "35 tests pass across 13 suites (JSON/YAML parsing, section ordering, duplicate IDs, schema validation, referential integrity, navigation, sample files, error format, boundary conditions)"
+    },
+    "lint": {
+      "passed": true,
+      "command": "node tooling/ui-md-linter/ui-md-lint.js samples/kanban/UI.md samples/mobile-onboarding/UI.md samples/cli-dashboard/UI.md",
+      "exitCode": 0,
+      "output": "All 3 sample files pass validation"
+    }
+  },
+  "reviewsSummary": {
+    "total": 9,
+    "passed": 8,
+    "failed": 1,
+    "failedFeatures": ["linter-json-appendix-validation"]
+  },
+  "blockingIssues": [
+    {
+      "featureId": "linter-json-appendix-validation",
+      "severity": "blocking",
+      "description": "Commit-feature mismatch: The handoff references commit cad2a1b ('m1-foundations round 1 - all 10 spec/docs assertions pass') which contains only .factory/validation/m1-foundations/user-testing/ files. This commit is NOT related to linter JSON appendix validation. The actual linter JSON appendix code is correctly implemented (verified by reviewer), but no commit contains linter changes for this feature. Either the code was pre-existing and verification-only was needed, or the commit was misattributed. The working tree is clean but the feature cannot be verified as independently implemented.",
+      "location": "commit cad2a1b vs feature linter-json-appendix-validation"
+    }
+  ],
+  "appliedUpdates": [],
+  "suggestedGuidanceUpdates": [
+    {
+      "target": "AGENTS.md",
+      "suggestion": "Add guidance for 'verification-only' features: when a feature requires only verification (no code changes needed), the commit should clearly document this and reference what was verified, rather than appearing to contain unrelated work.",
+      "evidence": "linter-json-appendix-validation reviewer found commit cad2a1b contains m1-foundations validation files, not linter work",
+      "isSystemic": false
+    },
+    {
+      "target": "AGENTS.md",
+      "suggestion": "Document that ROLE-* referential integrity checking currently only validates screen.roleAccess[] in appendix, not prose body text (unlike SCREEN-* and STATE-* which have prose-level regex checking). This creates an inconsistency but may be intentional based on feature description wording.",
+      "evidence": "linter-role-referential-integrity reviewer noted ROLE-* prose mentions like 'requires ROLE-admin' in Entry Conditions are not validated",
+      "isSystemic": false
+    },
+    {
+      "target": "AGENTS.md",
+      "suggestion": "Update state type documentation to reflect actual schema.json (13 types including idle, scrollback, editing, search-active, streaming, refreshing, field-selected) rather than only the base 6 (loading, empty, error, success, offline, permission-denied)",
+      "evidence": "linter-sample-validation and linter-test-suite reviewers both noted AGENTS.md state types section doesn't match schema",
+      "isSystemic": true
+    }
+  ],
+  "rejectedObservations": [
+    {
+      "observation": "js-yaml dependency not documented in tooling/ui-md-linter/package.json",
+      "reason": "No package.json exists in tooling/ui-md-linter/ directory. The dependency may be a project-level or global dependency. This is a documentation gap but not blocking for validation."
+    },
+    {
+      "observation": "Skill tooling-worker not found in project-level .factory/skills",
+      "reason": "Skill exists in instance-level .factory/skills directory. This is expected given the agent architecture."
+    }
+  ],
+  "previousRound": null,
+  "reviewReports": [
+    "linter-json-appendix-validation: FAIL (commit-feature mismatch)",
+    "linter-yaml-appendix-support: PASS",
+    "linter-external-appendix-support: PASS",
+    "linter-state-referential-integrity: PASS",
+    "linter-role-referential-integrity: PASS",
+    "linter-navigation-target-validation: PASS",
+    "linter-sample-validation: PASS",
+    "linter-test-suite: PASS",
+    "ci-workflow-setup: PASS"
+  ]
+}
