@@ -1,12 +1,12 @@
 {
   "milestone": "m3-vscode",
-  "round": 6,
+  "round": 7,
   "status": "fail",
   "assertionsSummary": {
-    "total": 6,
+    "total": 9,
     "passed": 4,
     "failed": 0,
-    "blocked": 2
+    "blocked": 5
   },
   "passedAssertions": [
     "VAL-VSCODE-001",
@@ -22,10 +22,22 @@
     },
     {
       "id": "VAL-VSCODE-005",
-      "blockedBy": "VS Code runtime not available in headless Linux VPS environment. Linter passes all sample files (exit code 0), extension.js correctly handles empty diagnostics case. Cannot verify actual VS Code Problems panel without VS Code."
+      "blockedBy": "VS Code runtime not available in headless Linux VPS environment. Linter passes all sample files (exit 0), extension.js correctly handles empty diagnostics case. Cannot verify actual VS Code Problems panel without VS Code."
+    },
+    {
+      "id": "VAL-GH-001",
+      "blockedBy": "SECURITY.md does not exist at repository root. The feature that would create it (community-security-md, milestone m4-governance) has not been implemented yet. File existence check fails."
+    },
+    {
+      "id": "VAL-GH-002",
+      "blockedBy": ".github/CODEOWNERS does not exist. The feature that would create it (community-codeowners, milestone m4-governance) has not been implemented yet. File existence check fails."
+    },
+    {
+      "id": "VAL-GH-003",
+      "blockedBy": "Neither .github/ISSUE_TEMPLATE nor .github/PULL_REQUEST_TEMPLATE directories exist. The feature that would create them (community-templates, milestone m4-governance) has not been implemented yet. File existence check fails."
     }
   ],
   "appliedUpdates": [],
   "previousRound": ".factory/validation/m3-vscode/user-testing/synthesis.json",
-  "notes": "Round 6 of m3-vscode user-testing validation. VS Code runtime remains unavailable on this headless Linux VPS (confirmed: no 'code' binary in PATH). All 4 testable assertions (VAL-VSCODE-001, 002, 003, 006) were validated via code inspection in prior rounds — package.json manifest fields correct, extension.js correctly invokes linter with --json flag, TextMate grammar pattern accepts correct ID formats. The 2 blocked assertions (VAL-VSCODE-004, VAL-VSCODE-005) require actual VS Code runtime to verify Problems panel behavior — this is an infrastructure limitation, not an implementation defect. The vscode-extension-linter-diagnostics feature correctly implements the required behavior (confirmed via code inspection). No new features completed since prior round — no new assertions to test. Status remains unchanged from round 5."
+  "notes": "Round 7 of m3-vscode user-testing validation. VS Code runtime remains unavailable on this headless Linux VPS (confirmed: no 'code' binary in PATH). All 4 testable VS Code assertions (VAL-VSCODE-001, 002, 003, 006) were validated via code inspection in prior rounds — package.json manifest fields correct, extension.js correctly invokes linter with --json flag, TextMate grammar pattern accepts correct ID formats. VAL-VSCODE-004 and VAL-VSCODE-005 require VS Code runtime — infrastructure limitation, not implementation defect. The 3 governance assertions (VAL-GH-001, VAL-GH-002, VAL-GH-003) are blocked because the features that fulfill them (community-security-md, community-codeowners, community-templates) are in milestone m4-governance and have not been implemented yet. Status unchanged from round 6 for VS Code assertions. Governance assertions newly documented as blocked."
 }
