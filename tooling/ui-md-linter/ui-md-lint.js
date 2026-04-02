@@ -306,13 +306,13 @@ function extractYamlAppendix(content) {
 function extractAppendix(content) {
   // Try JSON first
   const jsonResult = extractJsonAppendix(content);
-  if (jsonResult.json !== null) {
+  if (jsonResult.json !== null || jsonResult.parseError) {
     return { format: 'json', data: jsonResult.json, line: jsonResult.line, error: jsonResult.parseError };
   }
   
   // Try YAML
   const yamlResult = extractYamlAppendix(content);
-  if (yamlResult.yaml !== null) {
+  if (yamlResult.yaml !== null || yamlResult.parseError) {
     return { format: 'yaml', data: yamlResult.yaml, line: yamlResult.line, error: yamlResult.parseError };
   }
   
