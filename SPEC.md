@@ -1,6 +1,6 @@
 # UI.md Standard Specification
 
-**Version:** 1.0  
+**Version:** 1.1  
 **Status:** Stable  
 **Machine-Readable Schema:** `tooling/ui-md-linter/schema.json`
 
@@ -385,12 +385,26 @@ Every UI.md must define states covering these categories:
 | Offline states | `STATE-offline` | Disconnected, reconnecting, cached data stale |
 | Permission-denied states | `STATE-permission-denied` | User lacks access to feature or data |
 
+### 9.2.1 Extended State Categories (v1.1)
+
+The following state types extend the base set and may be used for more granular UI modeling:
+
+| Category | ID Prefix | Description |
+|----------|-----------|-------------|
+| Idle states | `STATE-idle` | User is inactivity, no pending operations |
+| Scrollback states | `STATE-scrollback` | User is reviewing historical content |
+| Editing states | `STATE-editing` | User is actively modifying content |
+| Search-active states | `STATE-search-active` | Search query is active with results |
+| Streaming states | `STATE-streaming` | Real-time data being received |
+| Refreshing states | `STATE-refreshing` | Data is being refreshed in place |
+| Field-selected states | `STATE-field-selected` | A specific field has focus |
+
 ### 9.3 State Schema
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `id` | string | Yes | Unique identifier, format `STATE-<name>` |
-| `type` | string | Yes | Category: `loading`, `empty`, `error`, `success`, `offline`, `permission-denied` |
+| `type` | string | Yes | Category: `loading`, `empty`, `error`, `success`, `offline`, `permission-denied`, `idle`, `scrollback`, `editing`, `search-active`, `streaming`, `refreshing`, `field-selected` |
 | `description` | string | Yes | What this state means and when it occurs |
 | `userMessage` | string | No | What the user sees (if different from description) |
 | `indicators` | string[] | Yes | Visual or behavioral indicators (spinner, empty illustration, error banner) |
@@ -565,7 +579,7 @@ The appendix may be:
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "UI.md Machine-Readable Appendix",
-  "version": "1.0",
+  "version": "1.1",
   "type": "object",
   "required": ["version", "screens", "states", "navigation", "dataContracts"],
   "properties": {
@@ -706,7 +720,7 @@ Example: STATE-loading, STATE-empty-board, STATE-error
 
 ### State Type Enumerations
 ```
-loading | empty | error | success | offline | permission-denied
+loading | empty | error | success | offline | permission-denied | idle | scrollback | editing | search-active | streaming | refreshing | field-selected
 ```
 
 ### Role ID Format
@@ -724,6 +738,25 @@ Push | Replace | No | Modal
 ```
 string | number | date | boolean | enum | array
 ```
+
+---
+
+## Appendix B. Version History
+
+### v1.1 — State Type Expansion
+
+**Changes:**
+- Expanded state type enumerations from 6 to 13 to support richer UI modeling
+- Added extended state categories: `idle`, `scrollback`, `editing`, `search-active`, `streaming`, `refreshing`, `field-selected`
+- Updated Section 9.2 with new "Extended State Categories (v1.1)" subsection
+- Updated Section 9.3 State Schema `type` field to reflect full enumeration
+- Updated Appendix A Quick Reference with all 13 state types
+
+**Migration:**
+Files authored under v1.0 remain valid under v1.1. The extended state types are **optional**; existing UI.md files using only the original 6 types are fully compliant. No changes required to existing documents.
+
+**Rationale:**
+The original 6-type model was sufficient for basic screen states but insufficient for real-time streaming UIs, search-heavy interfaces, and rich text editing contexts. The extended types enable more precise state modeling without breaking existing documents.
 
 ---
 
