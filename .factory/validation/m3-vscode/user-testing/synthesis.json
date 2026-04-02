@@ -1,6 +1,6 @@
 {
   "milestone": "m3-vscode",
-  "round": 1,
+  "round": 2,
   "status": "failure",
   "assertionsSummary": {
     "total": 6,
@@ -17,20 +17,20 @@
   "failedAssertions": [
     {
       "id": "VAL-VSCODE-004",
-      "reason": "BLOCKED: VS Code runtime not available in environment. Extension diagnostics logic verified via code inspection (extension.js spawns linter with --json flag), but actual runtime behavior cannot be tested without VS Code."
+      "reason": "BLOCKED: VS Code runtime not available in environment. Extension diagnostics logic verified via code inspection (extension.js spawns linter with --json flag and creates proper Diagnostic objects), but actual runtime behavior cannot be tested without VS Code."
     },
     {
       "id": "VAL-VSCODE-005",
-      "reason": "BLOCKED: VS Code runtime not available in environment. Linter passes on all sample files (exit code 0), extension.js logic would produce zero diagnostics for valid files, but cannot verify actual VS Code Problems panel without VS Code."
+      "reason": "BLOCKED: VS Code runtime not available in environment. Linter passes on all sample files (exit code 0, JSON output confirmed), extension.js correctly handles passed case (no diagnostics created when errors array is empty), but cannot verify actual VS Code Problems panel without VS Code."
     }
   ],
   "blockedAssertions": [],
   "appliedUpdates": [
     {
       "target": "user-testing.md",
-      "description": "Added note that VS Code extension assertions 004/005 require VS Code runtime which is not available in this environment. File inspection confirms extension logic is correct.",
-      "source": "setup"
+      "description": "Confirmed VS Code extension assertions 004/005 require VS Code desktop runtime which is not available. extension.js correctly spawns linter with --json flag and produces Diagnostic objects matching linter errors. Linter JSON output verified for both valid (samples pass) and invalid (tooling/vscode-extension/README.md returns errors) cases.",
+      "source": "flow-report"
     }
   ],
-  "previousRound": null
+  "previousRound": ".factory/validation/m3-vscode/user-testing/synthesis.json"
 }
