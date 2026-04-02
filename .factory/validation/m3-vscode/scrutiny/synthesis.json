@@ -1,0 +1,47 @@
+{
+  "milestone": "m3-vscode",
+  "round": 1,
+  "status": "pass",
+  "validatorsRun": {
+    "test": {
+      "passed": true,
+      "command": "node --test tooling/ui-md-linter/ui-md-lint.test.js",
+      "exitCode": 0,
+      "details": "35 tests, 13 suites, all passing"
+    },
+    "lint": {
+      "passed": true,
+      "command": "node tooling/ui-md-linter/ui-md-lint.js samples/kanban/UI.md samples/mobile-onboarding/UI.md samples/cli-dashboard/UI.md",
+      "exitCode": 0,
+      "details": "All sample files passed validation"
+    }
+  },
+  "reviewsSummary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "failedFeatures": []
+  },
+  "blockingIssues": [],
+  "appliedUpdates": [],
+  "suggestedGuidanceUpdates": [],
+  "rejectedObservations": [],
+  "previousRound": null,
+  "reviewReports": [
+    {
+      "featureId": "vscode-extension-manifest-fix",
+      "status": "pass",
+      "summary": "package.json has valid 'main' field (./extension.js), non-empty contributes.commands (4 commands), and activationEvents covering .ui.md files"
+    },
+    {
+      "featureId": "vscode-extension-linter-diagnostics",
+      "status": "pass",
+      "summary": "extension.js correctly reuses linter as diagnostic engine via subprocess invocation with --json flag; diagnostics match linter output; no false positives on valid samples"
+    },
+    {
+      "featureId": "vscode-extension-grammar-fix",
+      "status": "pass",
+      "summary": "TextMate grammar updated to accept lowercase IDs (SCREEN-[A-Za-z], STATE-[A-Za-z] patterns); aligns with schema.json pattern"
+    }
+  ]
+}
