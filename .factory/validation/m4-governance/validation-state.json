@@ -1,0 +1,133 @@
+{
+  "assertions": {
+    "VAL-SPEC-001": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T20:50:00Z"
+    },
+    "VAL-SPEC-002": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T20:50:00Z"
+    },
+    "VAL-SPEC-003": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T20:50:00Z"
+    },
+    "VAL-SPEC-004": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T20:50:00Z"
+    },
+    "VAL-SPEC-005": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T20:50:00Z"
+    },
+    "VAL-SPEC-006": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T20:50:00Z"
+    },
+    "VAL-LINT-001": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T22:17:07.256Z"
+    },
+    "VAL-LINT-002": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T22:17:07.256Z"
+    },
+    "VAL-LINT-003": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T22:17:07.256Z"
+    },
+    "VAL-LINT-004": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T22:17:07.256Z"
+    },
+    "VAL-LINT-005": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T22:17:07.256Z"
+    },
+    "VAL-LINT-006": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T22:17:07.256Z"
+    },
+    "VAL-LINT-007": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T22:17:07.256Z"
+    },
+    "VAL-LINT-008": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T22:17:07.256Z"
+    },
+    "VAL-VSCODE-001": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T23:00:00Z",
+      "evidence": "package.json main field is './extension.js', file exists at tooling/vscode-extension/extension.js"
+    },
+    "VAL-VSCODE-002": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T23:00:00Z",
+      "evidence": "package.json contributes.commands array has 4 entries: uiMd.validate, uiMd.showPreview, uiMd.insertScreenTemplate, uiMd.insertStateTemplate"
+    },
+    "VAL-VSCODE-003": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T23:00:00Z",
+      "evidence": "package.json activationEvents includes 'onLanguage:ui-md' and 'workspaceContains:**/*.ui.md'"
+    },
+    "VAL-VSCODE-004": {
+      "status": "failed",
+      "validatedAt": "2026-04-02T22:56:21.707Z",
+      "blockedBy": "VS Code runtime not available in headless Linux VPS environment. Extension.js correctly implements diagnostics by spawning linter with --json flag. Actual Problems panel behavior cannot be verified without VS Code."
+    },
+    "VAL-VSCODE-005": {
+      "status": "failed",
+      "validatedAt": "2026-04-02T22:56:21.707Z",
+      "blockedBy": "VS Code runtime not available in headless Linux VPS environment. Linter passes all samples (exit 0), extension.js correctly creates empty diagnostics when no errors. Actual Problems panel verification requires VS Code."
+    },
+    "VAL-VSCODE-006": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T23:00:00Z",
+      "evidence": "TextMate grammar screen-ids pattern is '\\\\b(SCREEN-[A-Za-z][A-Za-z0-9_-]+)\\\\b' which accepts lowercase IDs matching schema.json pattern and samples (e.g., SCREEN-board, SCREEN-cardDetail)"
+    },
+    "VAL-DOCS-001": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T20:50:00Z"
+    },
+    "VAL-DOCS-002": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T20:50:00Z"
+    },
+    "VAL-DOCS-003": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T20:50:00Z"
+    },
+    "VAL-DOCS-004": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T20:50:00Z"
+    },
+    "VAL-CI-001": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T22:17:07.256Z"
+    },
+    "VAL-CI-002": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T22:17:07.256Z"
+    },
+    "VAL-CI-003": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T22:17:07.256Z"
+    },
+    "VAL-GH-001": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T23:45:00Z",
+      "evidence": "SECURITY.md exists at repository root with complete vulnerability reporting instructions including GitHub Security Advisories and email contact methods"
+    },
+    "VAL-GH-002": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T23:45:00Z",
+      "evidence": ".github/CODEOWNERS exists and defines ownership for SPEC.md and tooling/ directories by @Ola-Turmo/UI.md-maintainers"
+    },
+    "VAL-GH-003": {
+      "status": "passed",
+      "validatedAt": "2026-04-02T23:45:00Z",
+      "evidence": ".github/ISSUE_TEMPLATE/ exists with bug_report.yml and feature_request.yml; .github/PULL_REQUEST_TEMPLATE.md exists"
+    }
+  }
+}
