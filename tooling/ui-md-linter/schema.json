@@ -1,1 +1,108 @@
-{}
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "UI.md Machine-Readable Appendix",
+  "version": "1.0",
+  "type": "object",
+  "required": ["version", "screens", "states", "navigation", "dataContracts"],
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+$",
+      "description": "UI.md schema version (e.g., '1.0')"
+    },
+    "screens": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "purpose", "primaryActions", "entryConditions", "exitConditions", "states", "roleAccess"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^SCREEN-[A-Z][a-zA-Z0-9]*$" },
+          "purpose": { "type": "string" },
+          "primaryActions": { "type": "array", "items": { "type": "string" } },
+          "entryConditions": { "type": "array", "items": { "type": "string" } },
+          "exitConditions": { "type": "array", "items": { "type": "string" } },
+          "states": { "type": "array", "items": { "type": "string", "pattern": "^STATE-" } },
+          "roleAccess": { "type": "array", "items": { "type": "string", "pattern": "^ROLE-" } }
+        }
+      }
+    },
+    "states": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "type", "description", "indicators", "allowedActions"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^STATE-[A-Z][a-zA-Z0-9]*$" },
+          "type": { 
+            "type": "string", 
+            "enum": ["loading", "empty", "error", "success", "offline", "permission-denied"] 
+          },
+          "description": { "type": "string" },
+          "userMessage": { "type": "string" },
+          "indicators": { "type": "array", "items": { "type": "string" } },
+          "allowedActions": { "type": "array", "items": { "type": "string" } },
+          "blockedActions": { "type": "array", "items": { "type": "string" } },
+          "recoveryAction": { "type": "string" }
+        }
+      }
+    },
+    "navigation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from", "to", "trigger"],
+        "properties": {
+          "from": { "type": "string", "pattern": "^SCREEN-" },
+          "to": { "type": "string", "pattern": "^SCREEN-" },
+          "trigger": { "type": "string" },
+          "condition": { "type": "string" },
+          "backStack": { "type": "string", "enum": ["Push", "Replace", "No", "Modal"] }
+        }
+      }
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["roleId", "name", "description", "capabilities", "visibleScreens"],
+        "properties": {
+          "roleId": { "type": "string", "pattern": "^ROLE-[A-Z][a-zA-Z0-9]*$" },
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "capabilities": { "type": "array", "items": { "type": "string" } },
+          "visibleScreens": { "type": "array", "items": { "type": "string", "pattern": "^SCREEN-" } },
+          "restrictions": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "dataContracts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": ["entityId", "name", "fields", "screenUsage", "operations"],
+        "properties": {
+          "entityId": { "type": "string", "pattern": "^ENTITY-[A-Z][a-zA-Z0-9]*$" },
+          "name": { "type": "string" },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["name", "label", "type", "required", "readOnly"],
+              "properties": {
+                "name": { "type": "string" },
+                "label": { "type": "string" },
+                "type": { "type": "string" },
+                "constraints": { "type": "object" },
+                "required": { "type": "boolean" },
+                "readOnly": { "type": "boolean" },
+                "format": { "type": "string" }
+              }
+            }
+          },
+          "screenUsage": { "type": "array", "items": { "type": "string", "pattern": "^SCREEN-" } },
+          "operations": { "type": "array", "items": { "type": "string", "enum": ["Create", "Read", "Update", "Delete"] } }
+        }
+      }
+    }
+  }
+}
