@@ -1,0 +1,39 @@
+{
+  "milestone": "m1-foundations",
+  "round": 1,
+  "status": "success",
+  "assertionsSummary": {
+    "total": 10,
+    "passed": 10,
+    "failed": 0,
+    "blocked": 0
+  },
+  "passedAssertions": [
+    "VAL-SPEC-001",
+    "VAL-SPEC-002",
+    "VAL-SPEC-003",
+    "VAL-SPEC-004",
+    "VAL-SPEC-005",
+    "VAL-SPEC-006",
+    "VAL-DOCS-001",
+    "VAL-DOCS-002",
+    "VAL-DOCS-003",
+    "VAL-DOCS-004"
+  ],
+  "failedAssertions": [],
+  "blockedAssertions": [],
+  "appliedUpdates": [],
+  "previousRound": null,
+  "notes": {
+    "VAL-SPEC-001": "SPEC.md Section 9.2, 9.2.1, and Appendix A enumerate 13 state types. schema.json type enum contains exactly 13 values. No discrepancy.",
+    "VAL-SPEC-002": "SPEC.md Section 6.5 and Appendix A enumerate Push, Pop, Replace, No, Modal (5 values). schema.json backStack enum contains same 5 values. No discrepancy.",
+    "VAL-SPEC-003": "SPEC.md Section 5.3 says 'SCREEN-<lowerCamelCaseName>' (first letter lowercase after SCREEN-). schema.json pattern '^SCREEN-[A-Za-z][a-zA-Z0-9]*$' accepts any letter at first position. Examples SCREEN-login, SCREEN-documentList, SCREEN-cardDetail are all valid. PASS.",
+    "VAL-SPEC-004": "SPEC.md Appendix A says 'STATE-<PascalCaseName>' with examples STATE-loading, STATE-empty-board. schema.json pattern '^STATE-[A-Za-z][a-zA-Z0-9-]*$' allows any letter at first position and hyphens. Examples valid. PASS.",
+    "VAL-SPEC-005": "SPEC.md Appendix A says 'ROLE-<PascalCaseName>' with examples ROLE-authenticated, ROLE-admin, ROLE-guest. schema.json pattern '^ROLE-[A-Za-z][a-zA-Z0-9]*$' accepts any letter at first position. Examples valid. PASS.",
+    "VAL-SPEC-006": "SPEC.md Section 6.5 and Appendix A enumerate Push, Pop, Replace, No, Modal. schema.json has same 5 values. Triple consistency achieved. PASS.",
+    "VAL-DOCS-001": "grep for 'ui-md-standard' in *.md files found zero matches in README.md, AGENTS.md, CONTRIBUTING.md. Only PRD.md (planning doc) and .factory/ files contain this old reference. PASS.",
+    "VAL-DOCS-002": "README.md Step 4 now says 'The linter is invoked directly via Node.js — no global install required' and documents 'node tooling/ui-md-linter/ui-md-lint.js' as the invocation method. No false npm install claims. PASS.",
+    "VAL-DOCS-003": "README.md, tooling/ui-md-linter/README.md, and tooling/vscode-extension/README.md all specify 'Node.js ≥18'. All three agree. PASS.",
+    "VAL-DOCS-004": "AGENTS.md references tooling/ui-md-linter/schema.json and tooling/ui-md-linter/ui-md-lint.js - both files exist. References to samples/*/UI.md - all three sample files exist. No broken links detected. PASS."
+  }
+}

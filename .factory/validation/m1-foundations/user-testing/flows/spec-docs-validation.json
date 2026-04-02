@@ -1,0 +1,33 @@
+{
+  "groupId": "spec-docs-validation",
+  "assertions": [
+    "VAL-SPEC-001",
+    "VAL-SPEC-002",
+    "VAL-SPEC-003",
+    "VAL-SPEC-004",
+    "VAL-SPEC-005",
+    "VAL-SPEC-006",
+    "VAL-DOCS-001",
+    "VAL-DOCS-002",
+    "VAL-DOCS-003",
+    "VAL-DOCS-004"
+  ],
+  "surface": "documentation",
+  "isolationContext": "N/A - documentation inspection",
+  "testingApproach": "Schema inspection + prose comparison as specified in validation contract",
+  "results": {
+    "VAL-SPEC-001": "pass",
+    "VAL-SPEC-002": "pass",
+    "VAL-SPEC-003": "pass",
+    "VAL-SPEC-004": "pass",
+    "VAL-SPEC-005": "pass",
+    "VAL-SPEC-006": "pass",
+    "VAL-DOCS-001": "pass",
+    "VAL-DOCS-002": "pass",
+    "VAL-DOCS-003": "pass",
+    "VAL-DOCS-004": "pass"
+  },
+  "frictions": [],
+  "blockers": [],
+  "toolsUsed": ["grep", "git", "node"]
+}
