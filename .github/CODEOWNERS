@@ -1,0 +1,10 @@
+# UI.md Standard CODEOWNERS
+# Defines ownership for specification and tooling files
+
+# Specification - owned by project maintainers
+SPEC.md @Ola-Turmo/UI.md-maintainers
+
+# Tooling - linter and IDE extension
+tooling/ @Ola-Turmo/UI.md-maintainers
+tooling/ui-md-linter/ @Ola-Turmo/UI.md-maintainers
+tooling/vscode-extension/ @Ola-Turmo/UI.md-maintainers
