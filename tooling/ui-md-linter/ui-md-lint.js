@@ -319,49 +319,107 @@ function extractAppendix(content) {
   return { format: null, data: null, line: null, error: null };
 }
 
-// Validate JSON or YAML appendix
-function validateJsonAppendix(content, validator) {
-  const errors = [];
-  const result = extractAppendix(content);
+// Find external appendix file in the same directory as the UI.md file
+// Checks for ui-appendix.yaml and ui-appendix.json (yaml takes precedence)
+function findExternalAppendix(filePath) {
+  const dir = path.dirname(filePath);
+  const yamlPath = path.join(dir, 'ui-appendix.yaml');
+  const jsonPath = path.join(dir, 'ui-appendix.json');
   
-  if (result.format === 'json' && result.error) {
+  // Check for YAML first (preferred per spec)
+  if (fs.existsSync(yamlPath)) {
+    try {
+      const content = fs.readFileSync(yamlPath, 'utf8');
+      const parsed = yaml.load(content);
+      return { format: 'yaml', data: parsed, path: yamlPath, error: null };
+    } catch (err) {
+      return { format: 'yaml', data: null, path: yamlPath, error: err.message };
+    }
+  }
+  
+  // Check for JSON
+  if (fs.existsSync(jsonPath)) {
+    try {
+      const content = fs.readFileSync(jsonPath, 'utf8');
+      return { format: 'json', data: JSON.parse(content), path: jsonPath, error: null };
+    } catch (err) {
+      return { format: 'json', data: null, path: jsonPath, error: err.message };
+    }
+  }
+  
+  return { format: null, data: null, path: null, error: null };
+}
+
+// Validate JSON or YAML appendix (embedded or external)
+function validateJsonAppendix(content, validator, filePath = null) {
+  const errors = [];
+  
+  // First try embedded appendix
+  const embeddedResult = extractAppendix(content);
+  let appendixData = embeddedResult.data;
+  let appendixFormat = embeddedResult.format;
+  let appendixLine = embeddedResult.line;
+  let appendixError = embeddedResult.error;
+  
+  // If no embedded appendix, try external file
+  if (appendixData === null && filePath) {
+    const externalResult = findExternalAppendix(filePath);
+    if (externalResult.data !== null) {
+      appendixData = externalResult.data;
+      appendixFormat = externalResult.format;
+      appendixLine = null; // External file doesn't have a line in the markdown
+      appendixError = externalResult.error;
+      
+      if (appendixError) {
+        errors.push({
+          type: appendixFormat === 'yaml' ? 'yaml-parse' : 'json-parse',
+          message: `Invalid ${appendixFormat.toUpperCase()} in external appendix (${externalResult.path}): ${appendixError}`,
+          suggestion: `Fix the ${appendixFormat.toUpperCase()} syntax in ${externalResult.path}`,
+          line: null
+        });
+        return errors;
+      }
+    }
+  }
+  
+  if (appendixFormat === 'json' && appendixError) {
     errors.push({
       type: 'json-parse',
-      message: `Invalid JSON in appendix: ${result.error}`,
+      message: `Invalid JSON in appendix: ${appendixError}`,
       suggestion: 'Fix the JSON syntax in the appendix block',
-      line: result.line
+      line: appendixLine
     });
     return errors;
   }
   
-  if (result.format === 'yaml' && result.error) {
+  if (appendixFormat === 'yaml' && appendixError) {
     errors.push({
       type: 'yaml-parse',
-      message: `Invalid YAML in appendix: ${result.error}`,
+      message: `Invalid YAML in appendix: ${appendixError}`,
       suggestion: 'Fix the YAML syntax in the appendix block',
-      line: result.line
+      line: appendixLine
     });
     return errors;
   }
   
-  if (result.data === null) {
+  if (appendixData === null) {
     errors.push({
       type: 'appendix-missing',
-      message: 'Missing appendix block (JSON or YAML)',
-      suggestion: 'Add a code block (```json or ```yaml) with the machine-readable appendix',
+      message: 'Missing appendix (no embedded block or external ui-appendix file found)',
+      suggestion: 'Add a code block (```json or ```yaml) with the machine-readable appendix, or place ui-appendix.yaml or ui-appendix.json in the same directory',
       line: null
     });
     return errors;
   }
   
   // Validate against schema
-  const schemaErrors = validator.validate(result.data);
+  const schemaErrors = validator.validate(appendixData);
   for (const err of schemaErrors) {
     errors.push({
       type: 'schema',
       message: err.path ? `[${err.path}] ${err.message}` : err.message,
       suggestion: err.suggestion,
-      line: result.line
+      line: appendixLine
     });
   }
   
@@ -605,11 +663,20 @@ function lintFile(filePath) {
   // Validate role IDs uniqueness
   errors.push(...validateRoleIds(content));
   
-  // Validate JSON appendix
-  errors.push(...validateJsonAppendix(content, validator));
+  // Validate JSON appendix (including external files)
+  errors.push(...validateJsonAppendix(content, validator, filePath));
   
-  // Get parsed appendix (JSON or YAML) for referential checks
-  const { data: appendix } = extractAppendix(content);
+  // Get parsed appendix (JSON or YAML, embedded or external) for referential checks
+  let appendix = null;
+  const embeddedResult = extractAppendix(content);
+  if (embeddedResult.data !== null) {
+    appendix = embeddedResult.data;
+  } else if (filePath) {
+    const externalResult = findExternalAppendix(filePath);
+    if (externalResult.data !== null) {
+      appendix = externalResult.data;
+    }
+  }
   
   // Validate referential integrity
   if (!errors.some(e => e.type === 'json-parse' || e.type === 'yaml-parse' || e.type === 'appendix-missing')) {
