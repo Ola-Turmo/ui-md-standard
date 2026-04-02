@@ -1,0 +1,85 @@
+{
+  "milestone": "m1-foundations",
+  "round": 2,
+  "status": "fail",
+  "validatorsRun": {
+    "lint-all": {
+      "passed": true,
+      "command": "node tooling/ui-md-linter/ui-md-lint.js samples/kanban/UI.md samples/mobile-onboarding/UI.md samples/cli-dashboard/UI.md",
+      "exitCode": 0,
+      "observation": "All 3 samples passed validation: kanban, mobile-onboarding, cli-dashboard"
+    },
+    "test": {
+      "passed": true,
+      "command": "node --test tooling/ui-md-linter/test*.js",
+      "exitCode": 0,
+      "observation": "0 tests (tests for m2-linter-ci milestone not yet implemented)"
+    },
+    "lint": {
+      "passed": true,
+      "command": "node tooling/ui-md-linter/ui-md-lint.js",
+      "exitCode": 0,
+      "observation": "Shows usage message when run without files - linter itself is functional"
+    }
+  },
+  "reviewsSummary": {
+    "total": 6,
+    "passed": 5,
+    "failed": 1,
+    "failedFeatures": [
+      "spec-schema-state-types-alignment"
+    ]
+  },
+  "blockingIssues": [
+    {
+      "featureId": "spec-schema-state-types-alignment",
+      "severity": "blocking",
+      "description": "SPEC.md embedded JSON schema (lines 615-617) state type enum has only 6 values while schema.json has 13 values. VAL-SPEC-001 pass criteria states 'No types present in one but not the other' - the embedded schema in SPEC.md must match schema.json exactly.",
+      "evidence": "SPEC.md line 617: enum with 6 types; schema.json line 43: enum with 13 types including idle, scrollback, editing, search-active, streaming, refreshing, field-selected",
+      "fixRequired": "Update SPEC.md embedded schema state type enum to include all 13 types"
+    }
+  ],
+  "appliedUpdates": [],
+  "suggestedGuidanceUpdates": [
+    {
+      "target": "AGENTS.md",
+      "suggestion": "Update Error 10 (Invalid Back-Stack Behavior) to include 'Pop' as a valid back-stack value, consistent with SPEC.md Section 6.5 and Appendix A which now list Push, Replace, Pop, No, Modal.",
+      "evidence": "spec-schema-backstack-alignment review found AGENTS.md line 363 still shows only 4 values: Push, Replace, No, Modal. SPEC.md Section 6.5 and Appendix A now correctly include Pop.",
+      "isSystemic": false
+    },
+    {
+      "target": "validation-contract",
+      "suggestion": "Clarify VAL-SPEC-001: The pass criteria mentions '13 types (v1.1 extended set)' but the blocking issue description says 'requires exactly 6 state types'. The evidence in the contract states schema.json line 43 has 13 types. Need to clarify if VAL-SPEC-001 should pass (prose + schema.json both have 13) or fail (embedded schema in SPEC.md has 6).",
+      "evidence": "VAL-SPEC-001 pass criteria: 'SPEC.md prose enumerates...13 total. schema.json enum contains exactly these 13 values.' Blocking issue: 'VAL-SPEC-001 requires exactly 6 state types'. These statements are contradictory.",
+      "isSystemic": false
+    }
+  ],
+  "rejectedObservations": [],
+  "nonBlockingIssues": [
+    {
+      "featureId": "spec-schema-backstack-alignment",
+      "severity": "non_blocking",
+      "description": "SPEC.md embedded JSON schema example in Section 11 still shows backStack enum as [\"Push\", \"Replace\", \"No\", \"Modal\"] missing Pop. Prose sections 6.5 and Appendix A correctly include Pop.",
+      "evidence": "SPEC.md Section 11 embedded schema example has 4 values; Section 6.5 and Appendix A have 5 values including Pop"
+    }
+  ],
+  "previousRound": {
+    "path": ".factory/validation/m1-foundations/scrutiny/synthesis.json",
+    "status": "fail",
+    "round": 1,
+    "failedFeatures": [
+      "spec-schema-state-types-alignment",
+      "spec-schema-id-formats-alignment"
+    ],
+    "blockingIssues": [
+      {
+        "featureId": "spec-schema-state-types-alignment",
+        "description": "VAL-SPEC-001 requires exactly 6 state types but spec now has 13"
+      },
+      {
+        "featureId": "spec-schema-id-formats-alignment",
+        "description": "SPEC.md embedded schema not updated for STATE/ROLE patterns"
+      }
+    ]
+  }
+}
