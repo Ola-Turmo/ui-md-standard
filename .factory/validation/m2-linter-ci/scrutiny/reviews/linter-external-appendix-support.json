@@ -1,0 +1,26 @@
+{
+  "featureId": "linter-external-appendix-support",
+  "reviewedAt": "2026-04-02T21:30:00.000Z",
+  "commitId": "359a1c9",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "The external appendix support feature was implemented correctly. The worker added findExternalAppendix() function to discover ui-appendix.yaml (preferred) or ui-appendix.json in the same directory as UI.md, updated validateJsonAppendix() to use external appendix when no embedded block exists, and updated lintFile() to use external appendix for referential integrity checks. All existing sample files pass validation (backward compatibility confirmed), and manual testing verified external YAML and JSON appendix files are discovered and validated correctly.",
+    "issues": []
+  },
+  "sharedStateObservations": [
+    {
+      "area": "skills",
+      "observation": "The feature references skillName 'tooling-worker' but this skill was not found in the project-level .factory/skills directory. The skill may exist only in the instance-level .factory/skills directory.",
+      "evidence": "features.json shows skillName: 'tooling-worker' for linter-external-appendix-support, but glob for .factory/skills at project root returned no matches. The transcript shows the worker used Skill tool with 'tooling-worker' which succeeded, suggesting the skill exists in the instance context."
+    },
+    {
+      "area": "conventions",
+      "observation": "AGENTS.md section 8.1 Linter Integration documents CLI usage but does not mention external appendix file discovery. This is expected since this is a new feature being implemented.",
+      "evidence": "AGENTS.md lines 395-410 show CLI usage for ui-md-lint.js without external appendix options. The error interpretation guide in AGENTS.md (lines 434-446) also does not mention external appendix scenarios."
+    }
+  ],
+  "addressesFailureFrom": null,
+  "summary": "Feature implementation passes review. The linter now correctly discovers and validates external ui-appendix.yaml or ui-appendix.json files colocated with UI.md when no embedded appendix block is found. Backward compatibility with existing UI.md files (including all sample files) is maintained. No blocking issues found."
+}

@@ -1,0 +1,44 @@
+{
+  "featureId": "linter-state-referential-integrity",
+  "reviewedAt": "2026-04-02T21:40:00.000Z",
+  "commitId": "b0ac6fc",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "STATE-* referential integrity checking is correctly implemented. The linter now: (1) extracts all STATE-* IDs from prose using regex `/STATE-[A-Za-z][a-zA-Z0-9-]*/g` which handles hyphenated state IDs; (2) validates each prose STATE-* exists in appendix.states[]; (3) validates navigation 'to' fields referencing STATE-* exist in appendix.states[]. Exit code 1 is returned when undefined STATE-* references are found, satisfying VAL-LINT-004.",
+    "issues": [
+      {
+        "severity": "non_blocking",
+        "description": "Line number detection logic for STATE-* errors may not report line numbers when the ID appears only inside JSON strings. The check `!lineContent.includes('"') && !lineContent.includes("'")` filters out matches in quoted contexts, which is intended behavior to avoid reporting errors in the appendix JSON itself, but means such matches won't get line numbers.",
+        "location": "tooling/ui-md-linter/ui-md-lint.js:589-600",
+        "suggestion": "Consider alternative approach: track all matches regardless of context, but skip reporting errors for matches that are within the appendix block boundaries. However, since errors are still reported (just without line numbers), this is acceptable."
+      },
+      {
+        "severity": "non_blocking",
+        "description": "Pre-existing bugs in samples/mobile-onboarding/UI.md were discovered: STATE-field-selected, STATE-loading-progress, and STATE-empty-profile are referenced in prose but not defined in appendix.states[]. This is correct linter behavior - it is catching genuine referential integrity issues that were previously undetected.",
+        "location": "samples/mobile-onboarding/UI.md",
+        "suggestion": "These are pre-existing bugs that should be addressed separately. The linter implementation is correct in flagging them."
+      }
+    ]
+  },
+  "sharedStateObservations": [
+    {
+      "area": "conventions",
+      "observation": "Worker followed the tooling-worker skill procedure correctly: read linter code, read schema, examined samples, implemented feature, tested, and committed. No deviations from documented procedure.",
+      "evidence": "Transcript skeleton shows skill invocation, file reads, TODO tracking, implementation, testing, and commit. skillFeedback.followedProcedure: true."
+    },
+    {
+      "area": "skills",
+      "observation": "The tooling-worker SKILL.md documents the referential integrity procedure (remove skip comment, add STATE-* checking similar to SCREEN-* checking, add ROLE-* checking). Worker followed this procedure exactly.",
+      "evidence": "SKILL.md Section 3: 'Referential integrity: Remove the skip comment in validateReferentialIntegrity(), Add STATE-* checking similar to SCREEN-* checking, Add ROLE-* checking'. Implementation matches exactly."
+    },
+    {
+      "area": "services",
+      "observation": "Worker used standard commands from services.yaml: 'node tooling/ui-md-linter/ui-md-lint.js' for linting, 'git commit' for versioning. No external commands or services were used that aren't documented.",
+      "evidence": "services.yaml defines lint command: 'node tooling/ui-md-linter/ui-md-lint.js'. Worker used this exact command for testing."
+    }
+  ],
+  "addressesFailureFrom": null,
+  "summary": "PASS - The STATE-* referential integrity feature is implemented correctly. The linter now validates all STATE-* IDs referenced in prose against the appendix.states[] array, satisfying VAL-LINT-004. Navigation 'to' fields that reference STATE-* are also validated. The worker followed documented procedures and no convention gaps were identified."
+}

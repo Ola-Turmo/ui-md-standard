@@ -1,0 +1,21 @@
+{
+  "featureId": "linter-sample-validation",
+  "reviewedAt": "2026-04-02T22:30:00.000Z",
+  "commitId": "673134b",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "The worker correctly identified and fixed referential integrity issues in samples/mobile-onboarding/UI.md. The fix added 3 missing state definitions (STATE-loading-progress, STATE-field-selected, STATE-empty-profile) to the appendix states array and removed 3 invalid navigation entries referencing non-existent screens (sign-in-flow, exit-confirmation-sheet, main-app). All three samples (kanban, mobile-onboarding, cli-dashboard) now pass linter validation with exit code 0.",
+    "issues": []
+  },
+  "sharedStateObservations": [
+    {
+      "area": "conventions",
+      "observation": "AGENTS.md documents only 6 state types (loading, empty, error, success, offline, permission-denied), but the actual schema.json defines 13 state types including idle, editing, field-selected, search-active, streaming, refreshing, scrollback. Workers authoring or validating UI.md files may rely on AGENTS.md and use only the documented 6 types, causing unnecessary work to verify against the actual schema.",
+      "evidence": "AGENTS.md line ~: 'State types must be from: loading, empty, error, success, offline, permission-denied' vs schema.json 'type': {'enum': ['loading', 'empty', 'error', 'success', 'offline', 'permission-denied', 'idle', 'scrollback', 'editing', 'search-active', 'streaming', 'refreshing', 'field-selected']}"
+    }
+  ],
+  "addressesFailureFrom": null,
+  "summary": "Feature linter-sample-validation passes review. The worker correctly ran linter against all sample files, identified root cause (mobile-onboarding/UI.md had missing state definitions and invalid navigation targets), applied fixes by adding 3 missing states to appendix and removing 3 invalid navigation entries, and verified all 3 samples pass with exit code 0. The implementation fully satisfies VAL-LINT-007."
+}

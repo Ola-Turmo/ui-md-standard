@@ -1,0 +1,26 @@
+{
+  "featureId": "linter-role-referential-integrity",
+  "reviewedAt": "2026-04-02T22:15:00.000Z",
+  "commitId": "ff38402",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "The ROLE-* referential integrity feature was implemented correctly. The linter now validates screen.roleAccess[] entries against appendix.roles[].roleId. The implementation follows the existing pattern in validateReferentialIntegrity() and produces 'referential' errors with appropriate messages. All 35 existing tests pass.",
+    "issues": []
+  },
+  "sharedStateObservations": [
+    {
+      "area": "conventions",
+      "observation": "The feature description says 'ROLE-* ID referenced in prose (screen.roleAccess[])' but the implementation only checks appendix roleAccess[], not prose body text. SCREEN-* and STATE-* have full prose-level regex checking, but ROLE-* does not. This creates an inconsistency where mentions like 'requires ROLE-admin' in prose Entry Conditions are not validated against appendix roles[]. The VAL-LINT-005 contract says 'referenced in prose (e.g., in screen.roleAccess[] or role definitions)' - the 'e.g.' and 'role definitions' phrasing suggests broader scope than just roleAccess[].",
+      "evidence": "tooling/ui-md-lint.js lines 604-629 only check appendix.screen[].roleAccess[]. Compare to lines 517-558 which use regex to extract SCREEN-* and STATE-* from content (prose) and validate against appendix. No equivalent prose-level regex exists for ROLE-*. Samples like kanban/UI.md:47 have prose 'User is authenticated (ROLE-authenticated or ROLE-admin)' that would not be caught by current implementation."
+    },
+    {
+      "area": "skills",
+      "observation": "Skill tooling-worker/SKILL.md says 'Add ROLE-* checking' but does not specify scope (prose vs appendix). VAL-LINT-005 contract suggests broader scope. The ambiguity meant the worker implemented the minimum (appendix only) which fulfills literal feature description but may not fully satisfy VAL-LINT-005 intent.",
+      "evidence": "SKILL.md 'Work Procedure' section 3 says 'Referential integrity: Remove the skip comment... Add ROLE-* checking' without detail. Feature description is 'Linter should verify every ROLE-* ID referenced in prose (screen.roleAccess[])'. Contract VAL-LINT-005 says 'e.g., in screen.roleAccess[] or role definitions'."
+    }
+  ],
+  "addressesFailureFrom": null,
+  "summary": "Feature linter-role-referential-integrity passes review. Implementation correctly validates screen.roleAccess[] against appendix.roles[] and produces referential errors for undefined roles. All 35 tests pass. The feature fulfills VAL-LINT-005 for the appendix-level check. A potential gap exists: ROLE-* references in prose body text (outside roleAccess[]) are not validated, unlike SCREEN-* and STATE-* which have prose-level regex checking. This may be intentional based on feature description wording ('prose (screen.roleAccess[])'), but creates inconsistency with how other ID types are validated."
+}
