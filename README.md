@@ -83,12 +83,12 @@ navigation:
     to: SCREEN-feature
 ```
 
-### Step 4: Install the Linter
+### Step 4: Validate Your UI.md
+
+The linter is invoked directly via Node.js — no global install required:
 
 ```bash
-npm install -g ui-md-linter
-# Or use directly:
-npx ui-md-linter ./UI.md
+node tooling/ui-md-linter/ui-md-lint.js ./UI.md
 ```
 
 ### Step 5: Validate
