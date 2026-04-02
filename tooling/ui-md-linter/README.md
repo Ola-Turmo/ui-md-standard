@@ -11,7 +11,7 @@ The UI.md linter validates that a `UI.md` file conforms to the [UI.md Standard S
 No installation required — the linter is a standalone Node.js script.
 
 **Prerequisites:**
-- Node.js 14.x or later
+- Node.js ≥18 (Node.js 18 LTS recommended)
 
 **Quick start:**
 ```bash

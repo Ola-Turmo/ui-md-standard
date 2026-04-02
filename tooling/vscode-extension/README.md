@@ -24,7 +24,7 @@ Provides a preview panel for viewing rendered UI.md content with proper formatti
 ## Installation from Source
 
 ### Prerequisites
-- [Node.js](https://nodejs.org/) v16+ 
+- [Node.js](https://nodejs.org/) ≥18 (Node.js 18 LTS recommended) 
 - [VS Code](https://code.visualstudio.com/) v1.75+
 
 ### Steps
