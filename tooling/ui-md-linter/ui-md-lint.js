@@ -641,8 +641,9 @@ function validateReferentialIntegrity(content, appendix) {
           line: null
         });
       }
-      // Only validate 'to' if it looks like a screen ID; allow external flow names
-      if (nav.to.startsWith('SCREEN-') && !validScreenIds.has(nav.to)) {
+      // Validate 'to' - always check against valid screen IDs
+      // (SCREEN-* prefixes are validated, but also catch non-prefixed IDs that reference screens)
+      if (!validScreenIds.has(nav.to)) {
         errors.push({
           type: 'referential',
           message: `Navigation "to" references unknown screen: ${nav.to}`,
