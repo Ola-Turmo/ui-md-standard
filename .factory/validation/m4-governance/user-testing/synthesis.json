@@ -1,0 +1,20 @@
+{
+  "milestone": "m4-governance",
+  "round": 1,
+  "status": "success",
+  "assertionsSummary": {
+    "total": 3,
+    "passed": 3,
+    "failed": 0,
+    "blocked": 0
+  },
+  "passedAssertions": [
+    "VAL-GH-001",
+    "VAL-GH-002",
+    "VAL-GH-003"
+  ],
+  "failedAssertions": [],
+  "blockedAssertions": [],
+  "appliedUpdates": [],
+  "previousRound": null
+}
