@@ -1,0 +1,111 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "UI.md",
+  "patterns": [
+    {
+      "include": "#headings"
+    },
+    {
+      "include": "#screen-ids"
+    },
+    {
+      "include": "#state-ids"
+    },
+    {
+      "include": "#data-entities"
+    },
+    {
+      "include": "#code-blocks"
+    },
+    {
+      "include": "#comments"
+    }
+  ],
+  "repository": {
+    "headings": {
+      "patterns": [
+        {
+          "name": "markup.heading.ui-md",
+          "match": "^#{1,6}\\s+.*$"
+        },
+        {
+          "name": "markup.bold.ui-md",
+          "match": "^\\s*[*_]{2}[^*_]+\\s*[*_]{2}$"
+        },
+        {
+          "name": "markup.italic.ui-md",
+          "match": "^\\s*[*_][^*_]+[*_]$"
+        }
+      ]
+    },
+    "screen-ids": {
+      "patterns": [
+        {
+          "name": "entity.name.type.ui-md",
+          "match": "\\b(SCREEN-[A-Z][A-Za-z0-9_-]+)\\b"
+        },
+        {
+          "name": "support.class.ui-md",
+          "match": "\\b(Screen-[A-Z][A-Za-z0-9_-]+)\\b"
+        }
+      ]
+    },
+    "state-ids": {
+      "patterns": [
+        {
+          "name": "constant.language.ui-md",
+          "match": "\\b(STATE-[A-Z][A-Za-z0-9_-]+)\\b"
+        },
+        {
+          "name": "support.type.ui-md",
+          "match": "\\b(State-[A-Z][A-Za-z0-9_-]+)\\b"
+        }
+      ]
+    },
+    "data-entities": {
+      "patterns": [
+        {
+          "name": "variable.other.ui-md",
+          "match": "\\b(Entity|DataContract|DataEntity)-\\w+\\b"
+        },
+        {
+          "name": "support.function.ui-md",
+          "match": "\\b(field|type|required|optional|enum)\\b"
+        }
+      ]
+    },
+    "code-blocks": {
+      "patterns": [
+        {
+          "name": "support.class.language.ui-md",
+          "begin": "```(json|yaml)",
+          "end": "```",
+          "captures": {
+            "0": {
+              "name": "punctuation.definition.code-block.json"
+            }
+          }
+        },
+        {
+          "name": "string.quoted.json",
+          "match": "\"(?:[^\"\\\\]|\\\\.)*\""
+        }
+      ]
+    },
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.ui-md",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.ui-md",
+          "begin": "/\\*",
+          "end": "\\*/"
+        }
+      ]
+    }
+  },
+  "scopeName": "text.ui-md",
+  "fileTypes": ["ui.md"]
+}
