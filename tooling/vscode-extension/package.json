@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "VS Code extension for UI.md Standard — provides syntax highlighting, validation diagnostics, and preview support for UI.md files",
   "publisher": "ui-md-standard",
+  "main": "./extension.js",
   "engines": {
     "vscode": "^1.75.0"
   },
@@ -11,6 +12,24 @@
     "workspaceContains:**/*.ui.md"
   ],
   "contributes": {
+    "commands": [
+      {
+        "command": "uiMd.validate",
+        "title": "Validate UI.md File"
+      },
+      {
+        "command": "uiMd.showPreview",
+        "title": "Show UI.md Preview"
+      },
+      {
+        "command": "uiMd.insertScreenTemplate",
+        "title": "Insert Screen Template"
+      },
+      {
+        "command": "uiMd.insertStateTemplate",
+        "title": "Insert State Template"
+      }
+    ],
     "languages": [
       {
         "id": "ui-md",
