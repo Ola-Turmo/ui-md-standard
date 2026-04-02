@@ -639,7 +639,7 @@ Fields:
 
 ---
 
-## 9. Appendix: Machine-Readable Contract
+## 9. Machine-Readable Appendix
 
 ```json
 {
