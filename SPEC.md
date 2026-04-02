@@ -260,6 +260,7 @@ graph LR
 | Behavior | Description |
 |----------|-------------|
 | `Push` | New screen added to back stack; back button returns to previous |
+| `Pop` | Current screen removed from back stack; returns to previous screen (e.g., closing modal, dismissing detail view) |
 | `Replace` | Current screen replaced; back button skips to screen before |
 | `No` | Transition does not affect back stack (e.g., logout, auth redirects) |
 | `Modal` | Overlay screen; back button or dismissal returns to previous without transition |
@@ -731,7 +732,7 @@ Example: ROLE-authenticated, ROLE-admin, ROLE-guest
 
 ### Navigation Back-Stack Values
 ```
-Push | Replace | No | Modal
+Push | Pop | Replace | No | Modal
 ```
 
 ### Data Entity Field Types
@@ -757,6 +758,15 @@ Files authored under v1.0 remain valid under v1.1. The extended state types are 
 
 **Rationale:**
 The original 6-type model was sufficient for basic screen states but insufficient for real-time streaming UIs, search-heavy interfaces, and rich text editing contexts. The extended types enable more precise state modeling without breaking existing documents.
+
+### v1.1 — Back-Stack `Pop` Addition (Minor)
+
+**Changes:**
+- Added `Pop` to navigation back-stack behavior enumerations in Section 6.5 and Appendix A
+- Aligns SPEC.md with schema.json which already included `Pop`
+
+**Migration:**
+Files using `Pop` in navigation remain valid. This change documents an existing extension that was already supported in the schema and used in sample UI.md files.
 
 ---
 
