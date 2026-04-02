@@ -1,0 +1,6 @@
+{
+  "name": "ui-md-vscode-extension",
+  "version": "0.0.1",
+  "description": "VS Code extension for UI.md Standard",
+  "main": "extension.js"
+}
