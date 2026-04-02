@@ -604,6 +604,31 @@ function validateReferentialIntegrity(content, appendix) {
     }
   }
   
+  // Validate ROLE-* references in screen.roleAccess[] against appendix roles
+  if (appendix.screens && appendix.roles) {
+    // Extract defined role IDs from appendix.roles[]
+    const definedRoleIds = new Set();
+    for (const role of appendix.roles) {
+      if (role.roleId) definedRoleIds.add(role.roleId);
+    }
+    
+    // Check each screen's roleAccess[] references
+    for (const screen of appendix.screens) {
+      if (screen.roleAccess && Array.isArray(screen.roleAccess)) {
+        for (const roleId of screen.roleAccess) {
+          if (!definedRoleIds.has(roleId)) {
+            errors.push({
+              type: 'referential',
+              message: `Screen "${screen.id}" references role "${roleId}" which is not defined in appendix roles[]`,
+              suggestion: `Add "${roleId}" to the roles array in the appendix, or remove it from screen "${screen.id}" roleAccess`,
+              line: null
+            });
+          }
+        }
+      }
+    }
+  }
+  
   // Validate navigation references
   if (appendix.navigation && appendix.screens) {
     const validScreenIds = new Set(appendix.screens.map(s => s.id));
