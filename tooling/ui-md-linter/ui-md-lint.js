@@ -760,6 +760,10 @@ function lintFile(filePath) {
 function main() {
   const args = process.argv.slice(2);
   
+  // Check for JSON output mode
+  const jsonMode = args.includes('--json');
+  const fileArgs = args.filter(arg => !arg.startsWith('--'));
+  
   // Show help if no arguments or --help
   if (args.length === 0 || args.includes('--help') || args.includes('-h')) {
     console.log(`
@@ -770,6 +774,7 @@ ${colors.yellow}Usage:${colors.reset}
 
 ${colors.yellow}Options:${colors.reset}
   --help, -h     Show this help message
+  --json         Output errors as JSON (for machine consumption)
 
 ${colors.yellow}Exit codes:${colors.reset}
   0  All files pass validation
@@ -796,23 +801,37 @@ ${colors.yellow}Examples:${colors.reset}
   // Lint each file
   let hasErrors = false;
   let totalErrors = 0;
+  const allResults = [];
   
-  for (const filePath of args) {
+  for (const filePath of fileArgs) {
     const errors = lintFile(filePath);
+    const formattedErrors = errors.map(error => formatError(filePath, error));
     
     if (errors.length > 0) {
       hasErrors = true;
       totalErrors += errors.length;
-      console.error(`\n${colors.red}=== Errors in ${filePath} ===${colors.reset}`);
-      for (const error of errors) {
-        printError(formatError(filePath, error));
+      
+      if (jsonMode) {
+        allResults.push({ file: filePath, passed: false, errors: formattedErrors });
+      } else {
+        console.error(`\n${colors.red}=== Errors in ${filePath} ===${colors.reset}`);
+        for (const error of formattedErrors) {
+          printError(error);
+        }
       }
     } else {
-      console.log(`${colors.green}✓${colors.reset} ${filePath}`);
+      if (jsonMode) {
+        allResults.push({ file: filePath, passed: true, errors: [] });
+      } else {
+        console.log(`${colors.green}✓${colors.reset} ${filePath}`);
+      }
     }
   }
   
-  if (hasErrors) {
+  if (jsonMode) {
+    console.log(JSON.stringify({ passed: !hasErrors, files: allResults, totalErrors }, null, 2));
+    process.exit(hasErrors ? 1 : 0);
+  } else if (hasErrors) {
     console.error(`\n${colors.red}Total: ${totalErrors} error(s)${colors.reset}`);
     process.exit(1);
   } else {
