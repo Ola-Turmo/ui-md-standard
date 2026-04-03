@@ -1,0 +1,15 @@
+{
+  "featureId": "vscode-extension-linter-diagnostics",
+  "reviewedAt": "2026-04-02T23:15:00.000Z",
+  "commitId": "ced4952",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "Implementation correctly reuses linter as diagnostic engine. Extension spawns linter subprocess with --json flag, parses JSON output, and creates VS Code diagnostics. The section header pattern mismatch is fixed by delegating to linter's regex patterns.",
+    "issues": []
+  },
+  "sharedStateObservations": [],
+  "addressesFailureFrom": null,
+  "summary": "Feature implementation is complete and correct. Extension.js now invokes 'node tooling/ui-md-linter/ui-md-lint.js --json' for validation and surfaces diagnostics matching linter output. All 3 sample files pass with 0 errors. No blocking issues found."
+}

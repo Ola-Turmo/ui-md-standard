@@ -1,0 +1,26 @@
+{
+  "featureId": "vscode-extension-manifest-fix",
+  "reviewedAt": "2026-04-02T22:35:00.000Z",
+  "commitId": "923d71f",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "The implementation correctly adds all three required manifest fields to package.json: (1) 'main' field pointing to './extension.js', (2) non-empty 'contributes.commands' array with 4 commands matching the command registrations in extension.js, and (3) activationEvents correctly covering .ui.md files.",
+    "issues": []
+  },
+  "sharedStateObservations": [
+    {
+      "area": "skills",
+      "observation": "The tooling-worker skill procedure for VS Code extension work was followed correctly. Worker read package.json and extension.js to understand the command registrations before making edits. No deviations from the documented procedure.",
+      "evidence": "Transcript shows worker read both package.json and extension.js, identified the 4 commands registered (uiMd.validate, uiMd.showPreview, uiMd.insertScreenTemplate, uiMd.insertStateTemplate), then added corresponding contributes.commands entries"
+    },
+    {
+      "area": "conventions",
+      "observation": "No new conventions were established or violated. The feature correctly addressed a manifest-only fix with no broader architectural implications.",
+      "evidence": "No AGENTS.md or services.yaml gaps identified"
+    }
+  ],
+  "addressesFailureFrom": null,
+  "summary": "Review PASSED. The vscode-extension-manifest-fix feature correctly implements all three expected behaviors: (1) package.json has valid 'main' field set to './extension.js', (2) package.json has non-empty 'contributes.commands' array with 4 command declarations matching extension.js registrations, (3) activationEvents already correctly cover .ui.md files via 'onLanguage:ui-md' and 'workspaceContains:**/*.ui.md'. The diff shows 19 insertions to package.json with no deletions. Worker followed the tooling-worker skill procedure correctly. No blocking issues found."
+}

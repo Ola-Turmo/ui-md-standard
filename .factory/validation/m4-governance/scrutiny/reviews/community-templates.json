@@ -1,0 +1,21 @@
+{
+  "featureId": "community-templates",
+  "reviewedAt": "2026-04-02T23:20:00.000Z",
+  "commitId": "72fe6b7",
+  "transcriptSkeletonReviewed": true,
+  "diffReviewed": true,
+  "status": "pass",
+  "codeReview": {
+    "summary": "Feature community-templates successfully implemented GitHub issue and PR templates. Issue templates exist in .github/ISSUE_TEMPLATE/ (bug_report.yml, feature_request.yml) and PR template exists as .github/PULL_REQUEST_TEMPLATE.md. All templates are properly formatted (YAML validated, Markdown valid). Templates guide contributors with spec vs tooling classification dropdowns/options.",
+    "issues": []
+  },
+  "sharedStateObservations": [
+    {
+      "area": "conventions",
+      "observation": "The validation-contract.md evidence check for VAL-GH-003 uses '[ -d \".github/PULL_REQUEST_TEMPLATE\" ]' (directory check) but GitHub's standard convention for PR templates is a single file '.github/PULL_REQUEST_TEMPLATE.md', not a directory. The implementation correctly uses the file-based approach. The validation contract could be updated to reflect the correct GitHub convention.",
+      "evidence": "validation-contract.md line ~490: 'Evidence: [ -d \".github/ISSUE_TEMPLATE\" ] || [ -d \".github/PULL_REQUEST_TEMPLATE\" ]' vs actual file at .github/PULL_REQUEST_TEMPLATE.md"
+    }
+  ],
+  "addressesFailureFrom": null,
+  "summary": "Feature community-templates PASSES review. Created .github/ISSUE_TEMPLATE/bug_report.yml (105 lines) with spec/tooling classification, .github/ISSUE_TEMPLATE/feature_request.yml (93 lines) with spec/tooling classification, and .github/PULL_REQUEST_TEMPLATE.md (104 lines) with PR type classification (Spec/Tooling/Docs/CI/CD/Community). All templates properly guide contributors for spec vs tooling changes as required by VAL-GH-003."
+}
